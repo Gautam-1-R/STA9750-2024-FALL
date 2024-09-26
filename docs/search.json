@@ -12,5 +12,33 @@
     "title": "MiniProject #01 Analysis",
     "section": "This code needs to be modified",
     "text": "This code needs to be modified\nUSAGE &lt;- USAGE %&gt;%\nmutate(Mode = case_when(\nMode == \"HR\" ~ \"Heavy Rail\",\n\nMode == \"MB\" ~ \"Bus\",\n\nMode == \"DR\" ~ \"Demand Response\",\n\nMode == \"CB\" ~ \"Commuter Bus\",\n\nMode == \"VP\" ~ \"Vanpool\",\n\nTRUE ~ \"Unknown\"))\nprint(ls()) # This will list all objects in your environment\nif (exists(“USAGE”)) {\nprint(“USAGE is created.”)\n} else {\nprint(“USAGE is not created.”) }"
+  },
+  {
+    "objectID": "mp01.html",
+    "href": "mp01.html",
+    "title": "MiniProject #01 Analysis",
+    "section": "",
+    "text": "```{r} # Load the tidyverse library library(tidyverse)"
+  },
+  {
+    "objectID": "mp01.html#headusage_and_financials",
+    "href": "mp01.html#headusage_and_financials",
+    "title": "MiniProject #01 Analysis",
+    "section": "{head(USAGE_AND_FINANCIALS)}",
+    "text": "{head(USAGE_AND_FINANCIALS)}"
+  },
+  {
+    "objectID": "mp01.html#this-code-needs-to-be-modified-1",
+    "href": "mp01.html#this-code-needs-to-be-modified-1",
+    "title": "MiniProject #01 Analysis",
+    "section": "This code needs to be modified",
+    "text": "This code needs to be modified\nUSAGE &lt;- USAGE %&gt;%\nmutate(Mode = case_when(\nMode == \"HR\" ~ \"Heavy Rail\",\n\nMode == \"MB\" ~ \"Bus\",\n\nMode == \"DR\" ~ \"Demand Response\",\n\nMode == \"CB\" ~ \"Commuter Bus\",\n\nMode == \"VP\" ~ \"Vanpool\",\n\nTRUE ~ \"Unknown\"))\nprint(ls()) # This will list all objects in your environment\nif (exists(“USAGE”)) {\nprint(“USAGE is created.”)\n} else {\nprint(“USAGE is not created.”) }"
+  },
+  {
+    "objectID": "mp01.html#headusage_and_financials-1",
+    "href": "mp01.html#headusage_and_financials-1",
+    "title": "MiniProject #01 Analysis",
+    "section": "{head(USAGE_AND_FINANCIALS)}",
+    "text": "{head(USAGE_AND_FINANCIALS)}"
   }
 ]

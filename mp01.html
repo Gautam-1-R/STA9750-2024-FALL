@@ -123,12 +123,15 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="lets-start-with-fare-revenue" class="level1">
 <h1>Let’s start with Fare Revenue</h1>
-<p>```{r} # Load the tidyverse library library(tidyverse)</p>
+</section>
+<section id="load-the-tidyverse-library" class="level1">
+<h1>Load the tidyverse library</h1>
+<p>library(tidyverse)</p>
 </section>
 <section id="check-if-the-fare-revenue-file-exists-if-not-download-it" class="level1">
 <h1>Check if the fare revenue file exists, if not, download it</h1>
 <p>if(!file.exists(“2022_fare_revenue.xlsx”)){</p>
-<p>download.file(“<a href="http://www.transit.dot.gov/sites/fta.dot.go" class="uri">http://www.transit.dot.gov/sites/fta.dot.go</a> v/files/2024-04/2022%20Fare%20Revenue.xlsx”,</p>
+<p>download.file(“http://www.transit.dot.gov/sites/fta.dot.go v/files/2024-04/2022%20Fare%20Revenue.xlsx”,</p>
 <pre><code>            destfile="2022_fare_revenue.xlsx", 
             
             quiet=FALSE,  
@@ -159,7 +162,7 @@ ul.task-list li input[type="checkbox"] {
 <p># If it doesn’t work for you, download this file ‘by hand’ in your</p>
 <p># browser and save it as “2022_expenses.csv” in your project</p>
 <p># directory.</p>
-<p>download.file(“<a href="https://data.transportation.gov/api/views/dkxx-zjd6/rows.csv?date=20231102&amp;accessType=DOWNLOAD&amp;bom=true&amp;format=true%22,">https://data.transportation.gov/api/views/dkxx-zjd6/rows.csv?date=20231102&amp;accessType=DOWNLOAD&amp;bom=true&amp;format=true”,</a></p>
+<p>download.file(“https://data.transportation.gov/api/views/dkxx-zjd6/rows.csv?date=20231102&amp;accessType=DOWNLOAD&amp;bom=true&amp;format=true”,</p>
 <pre><code>            destfile="2022_expenses.csv",
             
             quiet=FALSE)  # Removed method='wget'
@@ -187,7 +190,7 @@ ul.task-list li input[type="checkbox"] {
 <p># This should work <em>in theory</em> but in practice it’s still a bit finicky</p>
 <p># If it doesn’t work for you, download this file ‘by hand’ in your</p>
 <p># browser and save it as “ridership.xlsx” in your project # directory.</p>
-<p>download.file(“<a href="https://www.transit.dot.gov/sites/fta.dot.gov/files/2024-09/July%202024%20Complete%20Monthly%20Ridership%20%28with%20adjustments%20and%20estimates%29_240903.xlsx%22,">https://www.transit.dot.gov/sites/fta.dot.gov/files/2024-09/July%202024%20Complete%20Monthly%20Ridership%20%28with%20adjustments%20and%20estimates%29_240903.xlsx”,</a> destfile=”ridership.xlsx”, quiet=FALSE, method=“wget”) }</p>
+<p>download.file(“https://www.transit.dot.gov/sites/fta.dot.gov/files/2024-09/July%202024%20Complete%20Monthly%20Ridership%20%28with%20adjustments%20and%20estimates%29_240903.xlsx”, destfile=“ridership.xlsx”, quiet=FALSE, method=“wget”) }</p>
 <p>TRIPS &lt;- readxl::read_xlsx(“ridership.xlsx”, sheet=“UPT”) |&gt;</p>
 <p>filter(<code>Mode/Type of Service Status</code> == “Active”) |&gt;</p>
 <p>select(-<code>Legacy NTD ID</code>,</p>
@@ -417,311 +420,10 @@ TRUE ~ "Unknown"))</code></pre>
 <p>else</p>
 <p>{print(“USAGE_AND_FINANCIALS is not created.”)}</p>
 <p>if (exists(“USAGE_AND_FINANCIALS”))</p>
-<section id="headusage_and_financials" class="level2">
-<h2 class="anchored" data-anchor-id="headusage_and_financials">{head(USAGE_AND_FINANCIALS)}</h2>
-</section>
-</section>
-<section id="lets-start-with-fare-revenue-1" class="level1">
-<h1>Let’s start with Fare Revenue</h1>
-<p>```{r} # Load the tidyverse library library(tidyverse)</p>
-</section>
-<section id="check-if-the-fare-revenue-file-exists-if-not-download-it-1" class="level1">
-<h1>Check if the fare revenue file exists, if not, download it</h1>
-<p>if(!file.exists(“2022_fare_revenue.xlsx”)){</p>
-<p>download.file(“<a href="http://www.transit.dot.gov/sites/fta.dot.go" class="uri">http://www.transit.dot.gov/sites/fta.dot.go</a> v/files/2024-04/2022%20Fare%20Revenue.xlsx”,</p>
-<pre><code>            destfile="2022_fare_revenue.xlsx", 
-            
-            quiet=FALSE,  
-            
-            method="wget")</code></pre>
-<p>}</p>
-</section>
-<section id="proceed-to-read-the-data-1" class="level1">
-<h1>Proceed to read the data</h1>
-<p>FARES &lt;- readxl::read_xlsx(“2022_fare_revenue.xlsx”)</p>
-<p>select(-<code>State/Parent NTD ID</code>,</p>
-<pre><code>     -`Reporter Type`,
-     
-     -`Reporting Module`,
-     
-     -`TOS`,
-     
-     -`Passenger Paid Fares`,
-     
-     -`Organization Paid Fares`)
-     </code></pre>
-<p>filter(<code>Expense Type</code> == “Funds Earned During Period”) %&gt;% select(-<code>Expense Type</code>)</p>
-</section>
-<section id="next-expenses-1" class="level1">
-<h1>Next, expenses</h1>
-<p>if(!file.exists(“2022_expenses.csv”)){</p>
-<p># This should work <em>in theory</em> but in practice it’s still a bit finicky</p>
-<p># If it doesn’t work for you, download this file ‘by hand’ in your</p>
-<p># browser and save it as “2022_expenses.csv” in your project</p>
-<p># directory.</p>
-<p>download.file(“<a href="https://data.transportation.gov/api/views/dkxx-zjd6/rows.csv?date=20231102&amp;accessType=DOWNLOAD&amp;bom=true&amp;format=true%22,">https://data.transportation.gov/api/views/dkxx-zjd6/rows.csv?date=20231102&amp;accessType=DOWNLOAD&amp;bom=true&amp;format=true”,</a></p>
-<pre><code>            destfile="2022_expenses.csv",
-            
-            quiet=FALSE)  # Removed method='wget'
-            </code></pre>
-<p>}</p>
-<p>EXPENSES &lt;- read.csv(“2022_expenses.csv”) |&gt;</p>
-<p>select(<code>NTD ID</code>,</p>
-<pre><code>     `Agency`,
-     
-     `Total`, 
-     
-     `Mode`) |&gt;
-     </code></pre>
-<p>mutate(<code>NTD ID</code> = as.integer(<code>NTD ID</code>)) |&gt;</p>
-<p>rename(Expenses = Total) |&gt;</p>
-<p>group_by(<code>NTD ID</code>, <code>Mode</code>) |&gt;</p>
-<p>summarize(Expenses = sum(Expenses)) |&gt;</p>
-<p>ungroup()</p>
-<p>FINANCIALS &lt;- inner_join(FARES, EXPENSES, join_by(<code>NTD ID</code>, <code>Mode</code>))</p>
-</section>
-<section id="monthly-transit-numbers-1" class="level1">
-<h1>Monthly Transit Numbers</h1>
-<p>library(tidyverse)</p>
-<p>if(!file.exists(“ridership.xlsx”)){</p>
-<p># This should work <em>in theory</em> but in practice it’s still a bit finicky</p>
-<p># If it doesn’t work for you, download this file ‘by hand’ in your</p>
-<p># browser and save it as “ridership.xlsx” in your project # directory.</p>
-<p>download.file(“<a href="https://www.transit.dot.gov/sites/fta.dot.gov/files/2024-09/July%202024%20Complete%20Monthly%20Ridership%20%28with%20adjustments%20and%20estimates%29_240903.xlsx%22,">https://www.transit.dot.gov/sites/fta.dot.gov/files/2024-09/July%202024%20Complete%20Monthly%20Ridership%20%28with%20adjustments%20and%20estimates%29_240903.xlsx”,</a> destfile=”ridership.xlsx”, quiet=FALSE, method=“wget”) }</p>
-<p>TRIPS &lt;- readxl::read_xlsx(“ridership.xlsx”, sheet=“UPT”) |&gt;</p>
-<p>filter(<code>Mode/Type of Service Status</code> == “Active”) |&gt;</p>
-<p>select(-<code>Legacy NTD ID</code>,</p>
-<pre><code>     -`Reporter Type`, 
-     
-     -`Mode/Type of Service Status`, 
-     
-     -`UACE CD`,
-     
-     -`TOS`) |&gt;
-     </code></pre>
-<p>pivot_longer(-c(<code>NTD ID</code>:<code>3 Mode</code>),</p>
-<pre><code>           names_to="month", 
-           
-           values_to="UPT") |&gt;
-           </code></pre>
-<p>drop_na() |&gt;</p>
-<p>mutate(month=my(month)) # Parse _m_onth _y_ear date specs</p>
-<p>MILES &lt;- readxl::read_xlsx(“ridership.xlsx”, sheet=“VRM”) |&gt;</p>
-<p>filter(<code>Mode/Type of Service Status</code> == “Active”) |&gt;</p>
-<p>select(-<code>Legacy NTD ID</code>,</p>
-<pre><code>     -`Reporter Type`, 
-     
-     -`Mode/Type of Service Status`, 
-     
-     -`UACE CD`, 
-     
-     -`TOS`) |&gt;
-     </code></pre>
-<p>pivot_longer(-c(<code>NTD ID</code>:<code>3 Mode</code>),</p>
-<pre><code>           names_to="month", 
-           
-           values_to="VRM") |&gt;
-           </code></pre>
-<p>drop_na() |&gt;</p>
-<p>group_by(<code>NTD ID</code>, <code>Agency</code>, <code>UZA Name</code>,</p>
-<pre><code>       `Mode`, `3 Mode`, month) |&gt;
-       </code></pre>
-<p>summarize(VRM = sum(VRM)) |&gt;</p>
-<p>ungroup() |&gt;</p>
-<p>mutate(month=my(month)) # Parse _m_onth _y_ear date specs</p>
-<p>if(!require(“DT”)) install.packages(“DT”)</p>
-<p>library(DT)</p>
-<p>sample_n(USAGE, 1000) |&gt;</p>
-<p>mutate(month=as.character(month)) |&gt;</p>
-<p>DT::datatable()</p>
-<p>USAGE &lt;- USAGE %&gt;%</p>
-<p>rename(metro_area = <code>UZA Name</code>)</p>
-<section id="this-code-needs-to-be-modified-1" class="level2">
-<h2 class="anchored" data-anchor-id="this-code-needs-to-be-modified-1">This code needs to be modified</h2>
-<p>USAGE &lt;- USAGE %&gt;%</p>
-<p>mutate(Mode = case_when(</p>
-<pre><code>Mode == "HR" ~ "Heavy Rail",
-
-Mode == "MB" ~ "Bus",
-
-Mode == "DR" ~ "Demand Response",
-
-Mode == "CB" ~ "Commuter Bus",
-
-Mode == "VP" ~ "Vanpool",
-
-TRUE ~ "Unknown"))</code></pre>
-<p>print(ls()) # This will list all objects in your environment</p>
-<p>if (exists(“USAGE”)) {</p>
-<p>print(“USAGE is created.”)</p>
-<p>} else {</p>
-<p>print(“USAGE is not created.”) }</p>
-</section>
-</section>
-<section id="transit-agency-with-the-most-total-vrm-1" class="level1">
-<h1>1. Transit agency with the most total VRM</h1>
-<p>most_total_VRM_agency &lt;- USAGE %&gt;%</p>
-<p>group_by(Agency) %&gt;%</p>
-<p>summarize(total_VRM = sum(VRM, na.rm = TRUE)) %&gt;%</p>
-<p>arrange(desc(total_VRM)) %&gt;%</p>
-<p>slice(1)</p>
-</section>
-<section id="transit-mode-with-the-most-total-vrm-1" class="level1">
-<h1>2. Transit mode with the most total VRM</h1>
-<p>most_total_VRM_mode &lt;- USAGE %&gt;%</p>
-<p>group_by(Mode) %&gt;%</p>
-<p>summarize(total_VRM = sum(VRM, na.rm = TRUE)) %&gt;%</p>
-<p>arrange(desc(total_VRM)) %&gt;%</p>
-<p>slice(1)</p>
-</section>
-<section id="trips-taken-on-the-nyc-subway-in-may-2024-1" class="level1">
-<h1>3. Trips taken on the NYC Subway in May 2024</h1>
-<p>nyc_subway_trips_may_2024 &lt;- USAGE %&gt;%</p>
-<p>filter(Mode == “Heavy Rail”, month == as.Date(“2024-05-01”)) %&gt;%</p>
-<p>summarize(total_UPT = sum(UPT, na.rm = TRUE))</p>
-</section>
-<section id="mode-of-transport-with-the-longest-average-trip-in-may-2024-1" class="level1">
-<h1>4. Mode of transport with the longest average trip in May 2024</h1>
-<p>longest_avg_trip_may_2024 &lt;-USAGE %&gt;%</p>
-<p>filter(month == as.Date(“2024-05-01”)) %&gt;%</p>
-<p>mutate(avg_trip_length = VRM / UPT) %&gt;%</p>
-<p>group_by(Mode) %&gt;%</p>
-<p>summarize(avg_trip_length = mean(avg_trip_length, na.rm = TRUE)) %&gt;%</p>
-<p>arrange(desc(avg_trip_length)) %&gt;%</p>
-<p>slice(1)</p>
-</section>
-<section id="fall-in-nyc-subway-ridership-between-april-2019-and-april-2020-1" class="level1">
-<h1>5. Fall in NYC subway ridership between April 2019 and April 2020</h1>
-<p>nyc_subway_ridership_fall &lt;- USAGE %&gt;%</p>
-<p>filter(Mode == “Heavy Rail”, month %in% as.Date(c(“2019-04-01”, “2020-04-01”))) %&gt;%</p>
-<p>group_by(month) %&gt;%</p>
-<p>summarize(total_UPT = sum(UPT, na.rm = TRUE)) %&gt;% arrange(month)</p>
-</section>
-<section id="calculate-average-monthly-ridership-per-agency-1" class="level1">
-<h1>Calculate average monthly ridership per agency</h1>
-<p>average_ridership_per_agency &lt;- USAGE %&gt;%</p>
-<p>group_by(Agency) %&gt;%</p>
-<p>summarize(average_monthly_UPT = mean(UPT, na.rm = TRUE)) %&gt;%</p>
-<p>arrange(desc(average_monthly_UPT))</p>
-<p>print(average_ridership_per_agency)</p>
-<p>USAGE_2022_ANNUAL &lt;- USAGE %&gt;%</p>
-<p>mutate(year = year(month)) %&gt;%</p>
-<p>filter(year == 2022) %&gt;%</p>
-<p>group_by(<code>NTD ID</code>, Agency, metro_area, Mode) %&gt;%</p>
-<p>summarize(UPT = sum(UPT, na.rm = TRUE),</p>
-<pre><code>        VRM = sum(VRM, na.rm = TRUE)) %&gt;%
-        </code></pre>
-<p>ungroup()</p>
-<p>print(USAGE_2022_ANNUAL)</p>
-<p>USAGE_AND_FINANCIALS &lt;- left_join(USAGE_2022_ANNUAL, FINANCIAL by = c(“NTD ID”, “Mode”)) %&gt;%</p>
-<p>drop_na()</p>
-<p>print(USAGE_AND_FINANCIALS)</p>
-<p>USAGE &lt;- USAGE %&gt;%</p>
-<p>mutate(month = ym(month))</p>
-<p>USAGE_2022_ANNUAL &lt;- USAGE %&gt;%</p>
-<p>filter(year(month) == 2022) %&gt;% # Filter data for the year 2022</p>
-<p>group_by(<code>NTD ID</code>, Agency, metro_area, Mode) %&gt;%</p>
-<p>summarize(UPT = sum(UPT, na.rm = TRUE),</p>
-<pre><code>        VRM = sum(VRM, na.rm = TRUE)) %&gt;%
-        </code></pre>
-<p>ungroup()</p>
-<p>print(USAGE_2022_ANNUAL)</p>
-<p>USAGE_AND_FINANCIALS &lt;- left_join(USAGE_2022_ANNUAL,</p>
-<pre><code>                              FINANCIALS, 
-                              
-                              join_by(`NTD ID`, Mode)) |&gt;
-                              </code></pre>
-<p>drop_na()</p>
-</section>
-<section id="transit-system-agency-and-mode-had-the-most-upt-in-2022-1" class="level1">
-<h1>transit system (agency and mode) had the most UPT in 2022</h1>
-<p>most_upt &lt;- USAGE_AND_FINANCIALS %&gt;%</p>
-<p>arrange(desc(UPT)) %&gt;%</p>
-<p>slice(1)</p>
-<p>print(most_upt)</p>
-</section>
-<section id="farebox-recovery-ratio-1" class="level1">
-<h1>farebox recovery ratio</h1>
-<p>USAGE_AND_FINANCIALS &lt;- USAGE_AND_FINANCIALS %&gt;%</p>
-<p>mutate(farebox_recovery_ratio = Total_Fares / Expenses)</p>
-</section>
-<section id="highest-ratio-of-total-fares-to-expenses-1" class="level1">
-<h1>highest ratio of Total Fares to Expenses</h1>
-<p>highest_farebox_recovery &lt;- USAGE_AND_FINANCIALS %&gt;%</p>
-<p>arrange(desc(farebox_recovery_ratio)) %&gt;%</p>
-<p>slice(1)</p>
-<p>print(highest_farebox_recovery)</p>
-</section>
-<section id="transit-system-agency-and-mode-has-the-lowest-expenses-per-upt-1" class="level1">
-<h1>transit system (agency and mode) has the lowest expenses per UPT</h1>
-<p>USAGE_AND_FINANCIALS &lt;- USAGE_AND_FINANCIALS %&gt;%</p>
-<p>mutate(expenses_per_upt = Expenses / UPT)</p>
-<p>lowest_expenses_per_upt &lt;- USAGE_AND_FINANCIALS %&gt;%</p>
-<p>arrange(expenses_per_upt) %&gt;%</p>
-<p>slice(1)</p>
-<p>print(lowest_expenses_per_upt)</p>
-</section>
-<section id="transit-system-agency-and-mode-has-the-highest-total-fares-per-upt-1" class="level1">
-<h1>transit system (agency and mode) has the highest total fares per UPT</h1>
-<p>USAGE_AND_FINANCIALS &lt;- USAGE_AND_FINANCIALS %&gt;%</p>
-<p>mutate(fares_per_upt = Total_Fares / UPT)</p>
-<p>highest_fares_per_upt &lt;- USAGE_AND_FINANCIALS %&gt;%</p>
-<p>arrange(desc(fares_per_upt)) %&gt;%</p>
-<p>slice(1)</p>
-<p>print(highest_fares_per_upt)</p>
-</section>
-<section id="transit-system-agency-and-mode-has-the-lowest-expenses-per-vrm-1" class="level1">
-<h1>transit system (agency and mode) has the lowest expenses per VRM</h1>
-<p>USAGE_AND_FINANCIALS &lt;- USAGE_AND_FINANCIALS %&gt;%</p>
-<p>mutate(expenses_per_vrm = Expenses / VRM)</p>
-<p>lowest_expenses_per_vrm &lt;- USAGE_AND_FINANCIALS %&gt;%</p>
-<p>arrange(expenses_per_vrm) %&gt;%</p>
-<p>slice(1)</p>
-<p>print(lowest_expenses_per_vrm)</p>
-</section>
-<section id="transit-system-agency-and-mode-has-the-highest-total-fares-per-vrm-1" class="level1">
-<h1>transit system (agency and mode) has the highest total fares per VRM</h1>
-<p>USAGE_AND_FINANCIALS &lt;- USAGE_AND_FINANCIALS %&gt;%</p>
-<p>mutate(fares_per_vrm = Total_Fares / VRM)</p>
-<p>highest_fares_per_vrm &lt;- USAGE_AND_FINANCIALS %&gt;%</p>
-<p>arrange(desc(fares_per_vrm)) %&gt;%</p>
-<p>slice(1)</p>
-<p>print(highest_fares_per_vrm)</p>
-<p>highest_fares_per_vrm &lt;- USAGE_AND_FINANCIALS %&gt;%</p>
-<p>filter(!is.na(Total_Fares), !is.na(Expenses), VRM &gt; 0) %&gt;%</p>
-<p>mutate(fares_per_vrm = Total_Fares / VRM) %&gt;%</p>
-<p>group_by(Agency, Mode) %&gt;%</p>
-<p>summarize(total_fares_per_vrm = sum(fares_per_vrm, na.rm = TRUE)) %&gt;%</p>
-<p>arrange(desc(total_fares_per_vrm)) %&gt;%</p>
-<p>slice(1)</p>
-<p>USAGE_2022_ANNUAL &lt;- USAGE %&gt;%</p>
-<p>mutate(year = lubridate::year(month)) %&gt;%</p>
-<p>filter(year == 2022) %&gt;%</p>
-<p>group_by(<code>NTD ID</code>, Agency, metro_area, Mode) %&gt;%</p>
-<p>summarize(UPT = sum(UPT, na.rm = TRUE),</p>
-<pre><code>        VRM = sum(VRM, na.rm = TRUE)) %&gt;%
-        </code></pre>
-<p>ungroup()</p>
-<p>FINANCIALS &lt;- inner_join(FARES, EXPENSES, by = c(“NTD ID”, “Mode”))</p>
-<p>USAGE_AND_FINANCIALS &lt;- left_join(USAGE_2022_ANNUAL, FINANCIALS by = c(“NTD ID”, “Mode”)) %&gt;%</p>
-<p>drop_na()</p>
-</section>
-<section id="list-all-objects-in-your-r-environment-1" class="level1">
-<h1>List all objects in your R environment</h1>
-<p>ls()</p>
-</section>
-<section id="check-if-the-object-is-created-1" class="level1">
-<h1>Check if the object is created</h1>
-<p>if (“USAGE_AND_FINANCIALS” %in% ls()) {</p>
-<p>print(“USAGE_AND_FINANCIALS is created.”)}</p>
-<p>else</p>
-<p>{print(“USAGE_AND_FINANCIALS is not created.”)}</p>
-<p>if (exists(“USAGE_AND_FINANCIALS”))</p>
-<section id="headusage_and_financials-1" class="level2">
-<h2 class="anchored" data-anchor-id="headusage_and_financials-1">{head(USAGE_AND_FINANCIALS)}</h2>
+<p>{head(USAGE_AND_FINANCIALS)}</p>
+<hr>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
