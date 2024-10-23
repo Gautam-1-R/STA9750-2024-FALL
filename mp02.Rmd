@@ -1,0 +1,211 @@
+---
+title: "Mini-Project 02"
+output: html_document
+date: "2024-10-23"
+---
+
+## Elevator Pitch
+
+**Project Title: "The Great End Remake"**
+
+Our project proposes the remake of the 1981 action-packed TV episode *The Great End*, based on a detailed IMDb data analysis. The action genre has been one of the most successful over the decades, particularly during the 1990s and early 2000s. Our choice to revive *The Great End* is based on its near-perfect IMDb rating of 9.9/10 and its unremade status for over 25 years, making it the perfect candidate for a modern retelling.
+
+### Director and Cast
+
+-   **Director**: **Coky Giedroyc**, whose past works have achieved an outstanding success metric (126), known for visually stunning and critically acclaimed projects such as *Shadow Line*.
+
+-   **Actors**:
+
+    -   **Marlon Brando**, whose iconic performance in *The Godfather* earned him a success metric of 133.7, will lead this project.
+    -   **Al Pacino**, another legendary actor, famous for *Scarface* and *The Godfather*, brings the same success metric of 133.7, ensuring strong audience appeal.
+
+### Remake Potential
+
+*The Great End* (1981), rated 9.9 on IMDb, has not been remade in over two decades. This presents an incredible opportunity to breathe new life into the action genre by modernizing this classic, with a cast that brings both prestige and box-office appeal. This remake will attract both nostalgic audiences and new generations, ensuring critical and commercial success.
+
+------------------------------------------------------------------------
+
+## R Code and Analysis
+
+```{r setup, include=FALSE}
+# Set CRAN mirror
+options(repos = c(CRAN = "https://cran.rstudio.com"))
+
+# Install necessary packages if they are not installed
+if(!require(stringr)) install.packages("stringr")
+if(!require(tidyr)) install.packages("tidyr")
+if(!require(dplyr)) install.packages("dplyr")
+if(!require(ggplot2)) install.packages("ggplot2")
+if(!require(readr)) install.packages("readr")
+
+# Load required libraries
+library(dplyr)
+library(ggplot2)
+library(readr)
+library(stringr)
+library(tidyr)
+
+```
+
+# Data Ingestion and Cleaning
+
+```{r}
+# 1. Data Ingestion and Cleaning
+get_imdb_file <- function(fname){
+  BASE_URL <- "https://datasets.imdbws.com/"
+  fname_ext <- paste0(fname, ".tsv.gz")
+  if(!file.exists(fname_ext)){
+    FILE_URL <- paste0(BASE_URL, fname_ext)
+    options(timeout = max(600, getOption("timeout"))) 
+    download.file(FILE_URL, destfile = fname_ext)
+  }
+  as.data.frame(readr::read_tsv(fname_ext, lazy=FALSE))
+}
+
+# Download the necessary datasets
+NAME_BASICS      <- get_imdb_file("name.basics")
+TITLE_BASICS     <- get_imdb_file("title.basics")
+TITLE_EPISODES   <- get_imdb_file("title.episode")
+TITLE_RATINGS    <- get_imdb_file("title.ratings")
+TITLE_CREW       <- get_imdb_file("title.crew")
+TITLE_PRINCIPALS <- get_imdb_file("title.principals")
+```
+
+```{r}
+# Cleaning and Filtering Data
+NAME_BASICS <- NAME_BASICS |> filter(str_count(knownForTitles, ",") > 1)
+TITLE_RATINGS <- TITLE_RATINGS |> filter(numVotes >= 100)
+TITLE_BASICS <- TITLE_BASICS |> semi_join(TITLE_RATINGS, by = "tconst")
+TITLE_CREW <- TITLE_CREW |> semi_join(TITLE_RATINGS, by = "tconst")
+TITLE_PRINCIPALS <- TITLE_PRINCIPALS |> semi_join(TITLE_RATINGS, by = "tconst")
+
+# Convert columns to numeric in NAME_BASICS
+NAME_BASICS <- NAME_BASICS |> 
+  mutate(birthYear = as.numeric(ifelse(birthYear == "\\N", NA, birthYear)),
+         deathYear = as.numeric(ifelse(deathYear == "\\N", NA, deathYear)))
+
+# Check the result
+head(NAME_BASICS)
+```
+
+# Analysis - Instructor Questions
+
+```{r}
+# Q1. How many movies, TV series, and TV episodes are in the dataset?
+title_counts <- TITLE_BASICS %>%
+  group_by(titleType) %>%
+  summarise(count = n())
+title_counts
+
+# Q2. Who is the oldest living person in the dataset?
+oldest_person <- NAME_BASICS %>%
+  filter(is.na(deathYear)) %>%
+  arrange(birthYear) %>%
+  slice(1)
+oldest_person
+
+
+# Q3. Find the TV episode with a perfect 10/10 rating and at least 200,000 IMDb ratings.
+perfect_episode <- TITLE_RATINGS %>%
+  filter(averageRating == 10, numVotes >= 200000) %>%
+  inner_join(TITLE_BASICS, by = "tconst")
+perfect_episode
+
+# Find the highest-rated episode with at least 200,000 votes
+highest_rated_episode <- TITLE_RATINGS %>%
+  filter(numVotes >= 200000) %>%
+  arrange(desc(averageRating)) %>%
+  inner_join(TITLE_BASICS, by = "tconst") %>%
+  slice(1)
+highest_rated_episode
+
+# Q4. What four projects is the actor Mark Hamill most known for?
+hamill_known <- NAME_BASICS %>%
+  filter(primaryName == "Mark Hamill") %>%
+  select(knownForTitles)
+hamill_known
+
+# Q5. What TV series with more than 12 episodes has the highest average rating?
+best_tv_series <- TITLE_EPISODES %>%
+  group_by(parentTconst) %>%
+  summarise(num_episodes = n()) %>%
+  filter(num_episodes > 12) %>%
+  inner_join(TITLE_RATINGS, by = c("parentTconst" = "tconst")) %>%
+  arrange(desc(averageRating)) %>%
+  slice(1)
+best_tv_series
+
+# Q6. Average rating for each season of Happy Days
+happy_days_ratings <- TITLE_EPISODES %>%
+  filter(parentTconst == "tt0070992") %>%
+  inner_join(TITLE_RATINGS, by = "tconst") %>%
+  group_by(seasonNumber) %>%
+  summarise(avg_rating = mean(averageRating, na.rm = TRUE))
+happy_days_ratings
+```
+
+```{r}
+# 4. Develop a Success Metric
+TITLE_RATINGS <- TITLE_RATINGS %>%
+  mutate(success_metric = averageRating * log(numVotes))
+
+# Top 5-10 successful movies based on this metric
+top_successes <- TITLE_RATINGS %>%
+  arrange(desc(success_metric)) %>%
+  slice(1:10) %>%
+  inner_join(TITLE_BASICS, by = "tconst")
+top_successes
+```
+
+```{r}
+# 5. Trends in Success Over Time
+success_by_genre <- TITLE_BASICS %>%
+  filter(!is.na(startYear) & startYear != "\\N") %>%
+  mutate(startYear = as.numeric(startYear)) %>%
+  separate_rows(genres, sep = ",") %>%
+  inner_join(TITLE_RATINGS, by = "tconst") %>%
+  mutate(decade = floor(startYear / 10) * 10) %>%
+  group_by(genres, decade) %>%
+  summarise(success_count = sum(success_metric > 0, na.rm = TRUE))
+
+success_by_genre_clean <- success_by_genre %>%
+  filter(genres != "\\N")
+
+ggplot(success_by_genre_clean, aes(x = decade, y = success_count, color = genres)) +
+  geom_line() +
+  labs(title = "Success Trends by Genre Over Time", x = "Decade", y = "Number of Successes")
+```
+
+```{r}
+# 6. Identifying Key Personnel
+# Top Director
+top_director <- TITLE_CREW %>%
+  separate_rows(directors, sep = ",") %>%
+  inner_join(TITLE_RATINGS, by = "tconst") %>%
+  inner_join(NAME_BASICS, by = c("directors" = "nconst")) %>%
+  filter(primaryProfession == "director") %>%
+  arrange(desc(success_metric)) %>%
+  slice(1)
+top_director
+
+# Top 2 Actors
+top_actors <- TITLE_PRINCIPALS %>%
+  inner_join(TITLE_RATINGS, by = "tconst") %>%
+  inner_join(NAME_BASICS, by = "nconst") %>%
+  filter(str_detect(primaryProfession, "actor")) %>%
+  arrange(desc(success_metric)) %>%
+  slice(1:2)
+top_actors
+```
+
+```{r}
+# 7. Find a Classic Movie to Remake
+classic_movie <- TITLE_BASICS %>%
+  separate_rows(genres, sep = ",") %>%
+  filter(grepl("Action", genres)) %>%
+  inner_join(TITLE_RATINGS, by = "tconst") %>%
+  filter(startYear < 2000) %>%
+  arrange(desc(averageRating)) %>%
+  slice(1)
+classic_movie
+```
