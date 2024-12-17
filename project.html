@@ -1,0 +1,1631 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Gautam</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="project_files/libs/clipboard/clipboard.min.js"></script>
+<script src="project_files/libs/quarto-html/quarto.js"></script>
+<script src="project_files/libs/quarto-html/popper.min.js"></script>
+<script src="project_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="project_files/libs/quarto-html/anchor.min.js"></script>
+<link href="project_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="project_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="project_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="project_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="project_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+</head>
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title">Gautam</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header><details><summary><strong>Libraries</strong>
+</summary><div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'purrr' was built under R version 4.4.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'lubridate' was built under R version 4.4.2</code></pre>
+</div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://readxl.tidyverse.org">readxl</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hadley/reshape">reshape2</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'reshape2' was built under R version 4.4.2</code></pre>
+</div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org">tidyr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</details><details><summary><strong>Downloading the data</strong>
+</summary><div class="cell">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Function to Get NYCED Data Files from URL</span></span>
+<span><span class="va">get_nycps_file</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">fname</span>, <span class="va">sheet</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">BASE_URL</span> <span class="op">&lt;-</span> <span class="st">"https://infohub.nyced.org/docs/default-source/default-document-library/"</span></span>
+<span>  <span class="va">fname_ext</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">fname</span>, <span class="st">".xlsx"</span><span class="op">)</span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/files.html">file.exists</a></span><span class="op">(</span><span class="va">fname_ext</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">FILE_URL</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">BASE_URL</span>, <span class="va">fname_ext</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/utils/download.file.html">download.file</a></span><span class="op">(</span><span class="va">FILE_URL</span>, destfile <span class="op">=</span> <span class="va">fname_ext</span>, mode <span class="op">=</span> <span class="st">"wb"</span><span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html">read_excel</a></span><span class="op">(</span><span class="va">fname_ext</span>, sheet <span class="op">=</span> <span class="va">sheet</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co"># Function to Get City of New York Data Files from URL</span></span>
+<span><span class="va">get_cony_file</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">fname</span>, <span class="va">zname</span>, <span class="va">FILE_URL</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/files.html">file.exists</a></span><span class="op">(</span><span class="va">zname</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/utils/download.file.html">download.file</a></span><span class="op">(</span><span class="va">FILE_URL</span>, destfile <span class="op">=</span> <span class="va">zname</span>, mode <span class="op">=</span> <span class="st">"wb"</span><span class="op">)</span> <span class="co"># download zip file if it does not exist</span></span>
+<span>  <span class="op">}</span></span>
+<span>  <span class="va">td</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># create temporary directory</span></span>
+<span>  <span class="va">zip_contents</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/unzip.html">unzip</a></span><span class="op">(</span><span class="va">zname</span>, exdir <span class="op">=</span> <span class="va">td</span><span class="op">)</span> <span class="co"># unzip folder</span></span>
+<span>  <span class="va">file_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">grep</a></span><span class="op">(</span><span class="va">fname</span>, <span class="va">zip_contents</span>, value <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># find the correct file in the zip</span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">file_path</span><span class="op">)</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/stop.html">stop</a></span><span class="op">(</span><span class="st">"File not found in the zip archive!"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="va">file_path</span><span class="op">)</span><span class="op">)</span> <span class="co"># read the correct file</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co"># Load Graduation Rates</span></span>
+<span><span class="va">GRAD_RATES</span> <span class="op">&lt;-</span> <span class="fu">get_nycps_file</span><span class="op">(</span><span class="st">"2023-graduation-rates-public-school"</span>, <span class="st">"All"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Load Demographics</span></span>
+<span><span class="va">DEMOGRAPHICS</span> <span class="op">&lt;-</span> <span class="fu">get_nycps_file</span><span class="op">(</span><span class="st">"demographic-snapshot-2019-20-to-2023-24-public"</span>, <span class="st">"School"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Load Regents Data</span></span>
+<span><span class="va">REGENTS</span> <span class="op">&lt;-</span> <span class="fu">get_nycps_file</span><span class="op">(</span><span class="st">"2014-15-to-2022-23-nyc-regents-overall-and-by-category---public"</span>, <span class="st">"All Students"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Load ELA Data 2006-2012</span></span>
+<span><span class="va">ELA_URL_2006</span> <span class="op">&lt;-</span> <span class="st">"https://data.cityofnewyork.us/api/views/9uqq-k6t8/files/6cb21873-4c19-42ab-aa31-13573b47ed45?download=true&amp;filename=2006-2012%20ELA%20Test%20Results.zip"</span></span>
+<span><span class="va">ELA_2006</span> <span class="op">&lt;-</span> <span class="st">"2006-2012_ELA_Test_Results.zip"</span></span>
+<span><span class="va">ELA_2006_12_SCHOOL</span> <span class="op">&lt;-</span> <span class="fu">get_cony_file</span><span class="op">(</span><span class="st">"2006-2012_English_Language_Arts__ELA__Test_Results-_School_-_All_Students.csv"</span>, <span class="va">ELA_2006</span>, <span class="va">ELA_URL_2006</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Load ELA Data 2013-2019</span></span>
+<span><span class="va">ELA_URL_2013_19</span> <span class="op">&lt;-</span> <span class="st">"https://data.cityofnewyork.us/api/views/iebs-5yhr/files/a6ff1ea4-4895-4372-a2d6-bbd0b17e89a4?download=true&amp;filename=2013-2019%20ELA%20Test%20Results.zip"</span></span>
+<span><span class="va">ELA_2013_19</span> <span class="op">&lt;-</span> <span class="st">"2013-2019_ELA_Test_Results.zip"</span></span>
+<span><span class="va">ELA_2013_18_SCHOOL</span> <span class="op">&lt;-</span> <span class="fu">get_cony_file</span><span class="op">(</span><span class="st">"2013-2018_School_ELA_Results.csv"</span>, <span class="va">ELA_2013_19</span>, <span class="va">ELA_URL_2013_19</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Load Math Data 2006-2012</span></span>
+<span><span class="va">MATH_URL_2006_12</span> <span class="op">&lt;-</span> <span class="st">"https://data.cityofnewyork.us/api/views/e5c5-ieuv/files/93fd3270-8d2e-47ac-878d-04d96e411168?download=true&amp;filename=2006-2012%20Math%20Test%20Results.zip"</span></span>
+<span><span class="va">MATH_2006_12</span> <span class="op">&lt;-</span> <span class="st">"2006-2012_Math_Test_Results.zip"</span></span>
+<span><span class="va">MATH_2006_12_SCHOOL</span> <span class="op">&lt;-</span> <span class="fu">get_cony_file</span><span class="op">(</span><span class="st">"2006_-_2012__Math_Test_Results__-_All_Students.csv"</span>, <span class="va">MATH_2006_12</span>, <span class="va">MATH_URL_2006_12</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Load Math Data 2013-2017</span></span>
+<span><span class="va">MATH_URL_2013_17</span> <span class="op">&lt;-</span> <span class="st">"https://data.cityofnewyork.us/api/views/iebs-5yhr/files/a6ff1ea4-4895-4372-a2d6-bbd0b17e89a4?download=true&amp;filename=2013-2017%20Math%20Test%20Results.zip"</span></span>
+<span><span class="va">MATH_2013_17</span> <span class="op">&lt;-</span> <span class="st">"2013-2017_Math_Test_Results.zip"</span></span>
+<span><span class="va">MATH_2013_17_SCHOOL</span> <span class="op">&lt;-</span> <span class="kw"><a href="https://rdrr.io/r/base/conditions.html">tryCatch</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>  <span class="fu">get_cony_file</span><span class="op">(</span><span class="st">"2013-2017_ELA_Test_Results_by_Grade_-_School_-_All.csv"</span>, <span class="va">MATH_2013_17</span>, <span class="va">MATH_URL_2013_17</span><span class="op">)</span></span>
+<span><span class="op">}</span>, error <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">e</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/message.html">message</a></span><span class="op">(</span><span class="st">"Error loading Math Data 2013-2017: "</span>, <span class="va">e</span><span class="op">$</span><span class="va">message</span><span class="op">)</span></span>
+<span>  <span class="cn">NULL</span></span>
+<span><span class="op">}</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="co"># # Get column names</span></span>
+<span><span class="co"># column_name &lt;- colnames(MATH_2013_17_SCHOOL)</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># # Convert to data frame</span></span>
+<span><span class="co"># column_name_df &lt;- data.frame(column_name)</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># # Write to CSV file</span></span>
+<span><span class="co"># write.csv(column_name_df, "column_names.csv", row.names = FALSE)</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># # Print to confirm</span></span>
+<span><span class="co"># print(column_name_df)</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</details><section id="q-what-recurring-themes-or-relationships-between-school-characteristics-and-academic-outcomes-can-be-identified" class="level2"><h2 class="anchored" data-anchor-id="q-what-recurring-themes-or-relationships-between-school-characteristics-and-academic-outcomes-can-be-identified"><strong>Q What recurring themes or relationships between school characteristics and academic outcomes can be identified?</strong></h2>
+<section id="objective" class="level3"><h3 class="anchored" data-anchor-id="objective"><strong>Objective</strong></h3>
+<p>Identify patterns or relationships between various school characteristics (e.g., specialized, charter, resources, and teachers) and academic outcomes (e.g., graduation rates, test scores, Regents exam results).</p>
+<hr></section><section id="steps-to-approach" class="level3"><h3 class="anchored" data-anchor-id="steps-to-approach"><strong>Steps to Approach</strong></h3>
+<section id="data-exploration" class="level4"><h4 class="anchored" data-anchor-id="data-exploration"><strong>1. Data Exploration</strong></h4>
+<ul>
+<li>
+<strong>GRAD_RATES</strong>:
+<ul>
+<li>Explore graduation percentages by cohort and categories (e.g., total, advanced Regents).</li>
+<li>Investigate differences across schools, years, and categories.<br>
+</li>
+</ul>
+</li>
+<li>
+<strong>DEMOGRAPHICS</strong>:
+<ul>
+<li>Understand the composition of schools by gender, ethnicity, disabilities, and poverty rates.<br>
+</li>
+</ul>
+</li>
+<li>
+<strong>REGENTS</strong>:
+<ul>
+<li>Analyze Regents pass rates and proficiency levels across schools, and compare specialized/charter schools.<br>
+</li>
+</ul>
+</li>
+<li>
+<strong>ELA and MATH</strong>:
+<ul>
+<li>Examine trends in test scores (mean scores, proficiency levels) for ELA and Math.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Analysis Plan:</strong><br>
+- Identify which school characteristics (e.g., specialized, charter, resources) might be tied to better academic outcomes. - Investigate trends by: - School type (e.g., specialized, charter, traditional). - Resources (e.g., economic need index, student-teacher ratio if available indirectly via grades).<br>
+- Demographic attributes.</p>
+<hr></section><section id="exploratory-data-analysis-eda" class="level4"><h4 class="anchored" data-anchor-id="exploratory-data-analysis-eda"><strong>2. Exploratory Data Analysis (EDA)</strong></h4>
+<ul>
+<li>
+<strong>Visualizations:</strong>
+<ul>
+<li>Distribution plots for graduation rates and test scores by school type.</li>
+<li>Bar charts comparing performance by demographic group (gender, ethnicity, etc.).</li>
+<li>Line charts showing trends over time (e.g., improvement in ELA/MATH scores).</li>
+<li>Heatmaps for correlations between characteristics and outcomes.</li>
+</ul>
+</li>
+<li>
+<strong>Descriptive Statistics:</strong>
+<ul>
+<li>Summary statistics (mean, median, range) for graduation rates, Regents, and test scores by school type and resources.</li>
+</ul>
+</li>
+</ul>
+<hr></section><section id="statistical-analysis" class="level4"><h4 class="anchored" data-anchor-id="statistical-analysis"><strong>3. Statistical Analysis</strong></h4>
+<ul>
+<li>
+<strong>Correlation Analysis:</strong>
+<ul>
+<li>Explore relationships between variables like <code>% Poverty</code>, <code>% Students with Disabilities</code>, and academic performance.</li>
+</ul>
+</li>
+<li>
+<strong>Group Comparisons:</strong>
+<ul>
+<li>Use t-tests or ANOVA to compare outcomes across different types of schools (e.g., specialized vs.&nbsp;charter vs.&nbsp;traditional).<br>
+</li>
+</ul>
+</li>
+<li>
+<strong>Regression Analysis:</strong>
+<ul>
+<li>Build linear regression models to identify predictors of academic outcomes.<br>
+</li>
+<li>Example:
+<ul>
+<li>Dependent Variable: <code>% Grads</code>, <code>% Regents Pass</code>, Mean Test Scores.<br>
+</li>
+<li>Independent Variables: <code>% Poverty</code>, <code>% Students with Disabilities</code>, School Type, etc.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr></section></section><section id="step-1-load-and-inspect-the-datasets" class="level3"><h3 class="anchored" data-anchor-id="step-1-load-and-inspect-the-datasets"><strong>Step 1: Load and Inspect the Datasets</strong></h3>
+<ol type="1">
+<li>View the structure (<code><a href="https://rdrr.io/r/utils/str.html">str()</a></code>) of <strong>GRAD_RATES</strong> and <strong>DEMOGRAPHICS</strong> to understand column types.</li>
+<li>Summarize key variables to identify ranges, missing values, and overall patterns.</li>
+</ol>
+<hr></section><section id="step-2-analyze-key-variables" class="level3"><h3 class="anchored" data-anchor-id="step-2-analyze-key-variables"><strong>Step 2: Analyze Key Variables</strong></h3>
+<p>After loading and inspecting, we’ll analyze: 1. <strong>Graduation Rates:</strong> Investigate the relationship between <code>% Grads</code>, <code>% Regents</code>, and advanced Regents achievements. 2. <strong>Demographics:</strong> Examine school-level data like <code>% Poverty</code>, <code>% Students with Disabilities</code>, and ethnic composition.</p>
+<hr></section><section id="step-3-visualize-graduation-rates-by-school-type" class="level3"><h3 class="anchored" data-anchor-id="step-3-visualize-graduation-rates-by-school-type"><strong>Step 3: Visualize Graduation Rates by School Type</strong></h3>
+<p>We’ll create a bar chart comparing graduation rates between different school types.</p>
+<div class="cell">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">GRAD_RATES</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">"%"</span>, <span class="st">""</span>, <span class="va">`% Grads`</span><span class="op">)</span><span class="op">)</span>, fill <span class="op">=</span> <span class="va">Category</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_density.html">geom_density</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Distribution of Graduation Rates by School Type"</span>,</span>
+<span>       x <span class="op">=</span> <span class="st">"Graduation Rate (%)"</span>,</span>
+<span>       y <span class="op">=</span> <span class="st">"Density"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in FUN(X[[i]], ...): NAs introduced by coercion</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 260 rows containing non-finite outside the scale range
+(`stat_density()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="project_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<hr></section><section id="step-4-correlation-analysis" class="level3"><h3 class="anchored" data-anchor-id="step-4-correlation-analysis"><strong>Step 4: Correlation Analysis</strong></h3>
+<p>Check correlations between graduation rates and demographic variables like <code>% Poverty</code> and <code>% Students with Disabilities</code>.</p>
+<div class="cell">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Correlation Analysis</span></span>
+<span><span class="va">correlation_data</span> <span class="op">&lt;-</span> <span class="va">DEMOGRAPHICS</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">`% Poverty`</span>, <span class="va">`% Students with Disabilities`</span>, <span class="va">`% Asian`</span>, <span class="va">`% Black`</span>, <span class="va">`% Hispanic`</span>, <span class="va">`% White`</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html">everything</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">as.numeric</span><span class="op">)</span><span class="op">)</span>  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: There was 1 warning in `mutate()`.
+ℹ In argument: `across(everything(), as.numeric)`.
+Caused by warning:
+! NAs introduced by coercion</code></pre>
+</div>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span>  <span class="co"># Convert percentages to numeric</span></span>
+<span></span>
+<span><span class="va">cor_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">correlation_data</span>, use <span class="op">=</span> <span class="st">"complete.obs"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">cor_matrix</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                              % Poverty % Students with Disabilities    % Asian
+% Poverty                     1.0000000                   0.22138003 -0.2866360
+% Students with Disabilities  0.2213800                   1.00000000 -0.1973589
+% Asian                      -0.2866360                  -0.19735894  1.0000000
+% Black                       0.3254370                   0.11566417 -0.4704241
+% Hispanic                    0.4714285                   0.06602877 -0.3544481
+% White                      -0.7860903                  -0.05677008  0.2016510
+                                % Black  % Hispanic     % White
+% Poverty                     0.3254370  0.47142854 -0.78609034
+% Students with Disabilities  0.1156642  0.06602877 -0.05677008
+% Asian                      -0.4704241 -0.35444811  0.20165103
+% Black                       1.0000000 -0.40342336 -0.46633878
+% Hispanic                   -0.4034234  1.00000000 -0.38628493
+% White                      -0.4663388 -0.38628493  1.00000000</code></pre>
+</div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Visualize correlation as a heatmap</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/taiyun/corrplot">corrplot</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'corrplot' was built under R version 4.4.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>corrplot 0.95 loaded</code></pre>
+</div>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/corrplot/man/corrplot.html">corrplot</a></span><span class="op">(</span><span class="va">cor_matrix</span>, method <span class="op">=</span> <span class="st">"color"</span>, tl.cex <span class="op">=</span> <span class="fl">0.8</span>, title <span class="op">=</span> <span class="st">"Correlation Heatmap"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="project_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<hr></section><section id="observations-from-the-data-summary" class="level3"><h3 class="anchored" data-anchor-id="observations-from-the-data-summary"><strong>Observations from the Data Summary</strong></h3>
+<section id="correlation-matrix-highlights" class="level4"><h4 class="anchored" data-anchor-id="correlation-matrix-highlights"><strong>1. Correlation Matrix Highlights</strong></h4>
+<ul>
+<li>
+<strong>% Poverty and % Black/Hispanic</strong>: Strong positive correlations (0.325 for Black and 0.471 for Hispanic) indicate that schools with higher poverty rates tend to have higher proportions of Black and Hispanic students.</li>
+<li>
+<strong>% Poverty and % White</strong>: Strong negative correlation (-0.786) suggests that schools with higher poverty rates tend to have fewer White students.</li>
+<li>
+<strong>% Asian and % Black/Hispanic</strong>: Moderate to strong negative correlations with both Black (-0.470) and Hispanic (-0.354) percentages, indicating that schools with a higher percentage of Asian students have lower proportions of these groups.</li>
+<li>
+<strong>% White and Other Ethnicities</strong>: White percentages negatively correlate with all other ethnic groups, which aligns with demographic segregation patterns.</li>
+</ul>
+<hr></section><section id="key-insights-from-grad_rates" class="level4"><h4 class="anchored" data-anchor-id="key-insights-from-grad_rates"><strong>2. Key Insights from GRAD_RATES</strong></h4>
+<ul>
+<li>Variables like <code>% Grads</code>, <code>% Total Regents</code>, and <code>% Advanced Regents</code> are stored as character data, often in percentage form. These need conversion to numeric for analysis.</li>
+<li>There may be inconsistencies in graduation rates because some schools might have very low cohort sizes (e.g., <code># Total Cohort</code> ranges from 1 to 1517). Filtering might be needed to remove outliers with unrealistically small cohorts.</li>
+<li>Graduation data spans multiple years (<code>Cohort Year</code> from 2012 to 2019), allowing trend analysis.</li>
+</ul>
+<hr></section><section id="key-insights-from-demographics" class="level4"><h4 class="anchored" data-anchor-id="key-insights-from-demographics"><strong>3. Key Insights from DEMOGRAPHICS</strong></h4>
+<ul>
+<li>
+<strong>Total Enrollment</strong> varies significantly between schools (7 to 6,040), indicating that some schools are specialized or small-scale (e.g., charter or private-like schools).</li>
+<li>
+<strong>Ethnic Composition</strong> shows significant variability:
+<ul>
+<li>Hispanic and Black students dominate in many schools, with mean values of ~44% and ~30%, respectively.</li>
+<li>Asian students have a mean representation of ~11%, and White students ~11%, but these vary widely.</li>
+</ul>
+</li>
+<li>
+<strong>Poverty Indicators</strong>:
+<ul>
+<li>Data for <code>% Poverty</code> is stored as a character and needs to be converted.</li>
+<li>Economic disparity across schools could be a key driver of outcomes.</li>
+</ul>
+</li>
+</ul>
+<hr></section><section id="statistical-analysis-1" class="level4"><h4 class="anchored" data-anchor-id="statistical-analysis-1"><strong>3. Statistical Analysis</strong></h4>
+<ul>
+<li>
+<strong>Regression Models</strong>:
+<ul>
+<li>Fit a linear regression to explore the relationship between graduation rates and predictors like poverty, ethnicity, and total enrollment.</li>
+</ul>
+</li>
+<li>
+<strong>Group Comparisons</strong>:
+<ul>
+<li>Compare average graduation rates between high-poverty and low-poverty schools using t-tests or ANOVA.</li>
+</ul>
+</li>
+</ul>
+<hr></section></section><section id="cleaning-and-initial-visualizations-code" class="level3"><h3 class="anchored" data-anchor-id="cleaning-and-initial-visualizations-code">Cleaning and Initial Visualizations Code</h3>
+<details><summary>
+Here’s the R code for cleaning and starting visualizations:
+</summary><div class="cell">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Data Cleaning</span></span>
+<span><span class="co"># Convert percentage columns to numeric</span></span>
+<span><span class="va">GRAD_RATES</span> <span class="op">&lt;-</span> <span class="va">GRAD_RATES</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">contains</a></span><span class="op">(</span><span class="st">"%"</span><span class="op">)</span>, <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">"%"</span>, <span class="st">""</span>, <span class="va">.</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: There were 11 warnings in `mutate()`.
+The first warning was:
+ℹ In argument: `across(contains("%"), ~as.numeric(gsub("%", "", .)))`.
+Caused by warning:
+! NAs introduced by coercion
+ℹ Run `dplyr::last_dplyr_warnings()` to see the 10 remaining warnings.</code></pre>
+</div>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">DEMOGRAPHICS</span> <span class="op">&lt;-</span> <span class="va">DEMOGRAPHICS</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">contains</a></span><span class="op">(</span><span class="st">"%"</span><span class="op">)</span>, <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">"%"</span>, <span class="st">""</span>, <span class="va">.</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>         `% Poverty` <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">`% Poverty`</span><span class="op">)</span><span class="op">)</span>  <span class="co"># Convert poverty column</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: There was 1 warning in `mutate()`.
+ℹ In argument: `across(contains("%"), ~as.numeric(gsub("%", "", .)))`.
+Caused by warning:
+! NAs introduced by coercion</code></pre>
+</div>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Filter for realistic cohort sizes</span></span>
+<span><span class="va">GRAD_RATES</span> <span class="op">&lt;-</span> <span class="va">GRAD_RATES</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">`# Total Cohort`</span> <span class="op">&gt;=</span> <span class="fl">10</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Visualization: Graduation Rates by Poverty Levels</span></span>
+<span><span class="va">grad_poverty</span> <span class="op">&lt;-</span> <span class="va">GRAD_RATES</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">DEMOGRAPHICS</span>, by <span class="op">=</span> <span class="st">"DBN"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">`% Poverty`</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">`% Grads`</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>Poverty_Level <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span></span>
+<span>    <span class="va">`% Poverty`</span> <span class="op">&lt;</span> <span class="fl">30</span> <span class="op">~</span> <span class="st">"Low Poverty (&lt;30%)"</span>,</span>
+<span>    <span class="va">`% Poverty`</span> <span class="op">&gt;=</span> <span class="fl">30</span> <span class="op">&amp;</span> <span class="va">`% Poverty`</span> <span class="op">&lt;</span> <span class="fl">70</span> <span class="op">~</span> <span class="st">"Medium Poverty (30-70%)"</span>,</span>
+<span>    <span class="va">`% Poverty`</span> <span class="op">&gt;=</span> <span class="fl">70</span> <span class="op">~</span> <span class="st">"High Poverty (70%+)"</span></span>
+<span>  <span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in left_join(., DEMOGRAPHICS, by = "DBN"): Detected an unexpected many-to-many relationship between `x` and `y`.
+ℹ Row 1 of `x` matches multiple rows in `y`.
+ℹ Row 56 of `y` matches multiple rows in `x`.
+ℹ If a many-to-many relationship is expected, set `relationship =
+  "many-to-many"` to silence this warning.</code></pre>
+</div>
+</div>
+</details><div class="cell">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">grad_poverty</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Poverty_Level</span>, y <span class="op">=</span> <span class="va">`% Grads`</span>, fill <span class="op">=</span> <span class="va">Poverty_Level</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Graduation Rates by Poverty Level"</span>,</span>
+<span>       x <span class="op">=</span> <span class="st">"Poverty Level"</span>,</span>
+<span>       y <span class="op">=</span> <span class="st">"Graduation Rate (%)"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">45</span>, hjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="project_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">grad_poverty</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">`% Poverty`</span>, y <span class="op">=</span> <span class="va">`% Grads`</span>, color <span class="op">=</span> <span class="va">Poverty_Level</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Graduation Rates vs. Poverty Level"</span>,</span>
+<span>       x <span class="op">=</span> <span class="st">"Poverty Level"</span>,</span>
+<span>       y <span class="op">=</span> <span class="st">"Graduation Rate (%)"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="project_files/figure-html/unnamed-chunk-6-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">grad_poverty</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">`% Grads`</span>, fill <span class="op">=</span> <span class="va">Poverty_Level</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_density.html">geom_density</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Distribution of Graduation Rates by Poverty Level"</span>,</span>
+<span>       x <span class="op">=</span> <span class="st">"Graduation Rate (%)"</span>,</span>
+<span>       y <span class="op">=</span> <span class="st">"Density"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="project_files/figure-html/unnamed-chunk-6-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<hr></section><section id="key-observations" class="level3"><h3 class="anchored" data-anchor-id="key-observations">Key Observations:</h3>
+<ol type="1">
+<li><p><strong>Numerical Columns as Character Types:</strong><br>
+Many columns (e.g., <code>% Grads</code>, <code>% Total Regents of Cohort</code>, etc.) are stored as characters. These should be converted to numeric for any statistical analysis or modeling.</p></li>
+<li><p><strong>Potential Missing Data:</strong><br>
+Some variables seem to have missing or incomplete data (e.g., <code># Neither Female nor Male</code> and <code># Missing Race/Ethnicity Data</code> have many <code>NA</code> values).</p></li>
+<li>
+<p><strong>Correlation Insights:</strong></p>
+<ul>
+<li>There is a strong negative correlation between <code>% White</code> and <code>% Poverty</code>.<br>
+</li>
+<li>
+<code>% Asian</code> shows moderate negative correlations with <code>% Poverty</code>, <code>% Black</code>, and <code>% Hispanic</code>.<br>
+</li>
+<li>
+<code>% Black</code> and <code>% Hispanic</code> have moderate negative correlations with <code>% White</code>.</li>
+</ul>
+</li>
+<li><p><strong>Dataset Size and Scope:</strong><br>
+The size of the datasets (<code>DEMOGRAPHICS</code>: 9363 rows, <code>GRAD_RATES</code>: 17093 rows) suggests they cover multiple schools and years, which may require grouping or filtering to focus on specific analysis questions.</p></li>
+</ol>
+<hr></section><section id="proposed-next-steps" class="level3"><h3 class="anchored" data-anchor-id="proposed-next-steps">Proposed Next Steps:</h3>
+<section id="data-cleaning" class="level4"><h4 class="anchored" data-anchor-id="data-cleaning">1. <strong>Data Cleaning</strong>
+</h4>
+<p>Convert the relevant columns to numeric and handle missing values appropriately. For instance:</p>
+<div class="cell">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Select columns with % in their names dynamically</span></span>
+<span><span class="va">cols_to_convert</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">GRAD_RATES</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span><span class="op">(</span><span class="st">"%"</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">GRAD_RATES</span><span class="op">)</span><span class="op">)</span><span class="op">]</span></span>
+<span></span>
+<span><span class="co"># Convert these columns to numeric</span></span>
+<span><span class="va">GRAD_RATES</span><span class="op">[</span><span class="va">cols_to_convert</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">GRAD_RATES</span><span class="op">[</span><span class="va">cols_to_convert</span><span class="op">]</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">merged_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/merge.html">merge</a></span><span class="op">(</span><span class="va">GRAD_RATES</span>, <span class="va">DEMOGRAPHICS</span>, by <span class="op">=</span> <span class="st">"DBN"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Specify columns to convert from both datasets</span></span>
+<span><span class="va">cols_to_convert</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"% Grads"</span>, <span class="st">"% Total Regents of Cohort"</span>, <span class="st">"% Poverty"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Ensure these columns exist in the merged dataset</span></span>
+<span><span class="va">merged_data</span><span class="op">[</span><span class="va">cols_to_convert</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">merged_data</span><span class="op">[</span><span class="va">cols_to_convert</span><span class="op">]</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Handle missing data</span></span>
+<span><span class="va">merged_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html">na.omit</a></span><span class="op">(</span><span class="va">merged_data</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">cor_data</span> <span class="op">&lt;-</span> <span class="va">merged_data</span><span class="op">[</span>, <span class="va">cols_to_convert</span><span class="op">]</span></span>
+<span><span class="va">cor_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">cor_data</span>, use <span class="op">=</span> <span class="st">"complete.obs"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">cor_matrix</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                             % Grads % Total Regents of Cohort  % Poverty
+% Grads                    1.0000000                 0.9488941 -0.3887102
+% Total Regents of Cohort  0.9488941                 1.0000000 -0.4207311
+% Poverty                 -0.3887102                -0.4207311  1.0000000</code></pre>
+</div>
+</div>
+</section><section id="exploratory-data-analysis-eda-1" class="level4"><h4 class="anchored" data-anchor-id="exploratory-data-analysis-eda-1">2. <strong>Exploratory Data Analysis (EDA)</strong>
+</h4>
+<ul>
+<li>Create visualizations to explore relationships, e.g., scatterplots or boxplots for <code>% Poverty</code> vs.&nbsp;graduation rates.</li>
+<li>Generate histograms or density plots for distribution of key variables.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">merged_data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">`% Poverty`</span>, y <span class="op">=</span> <span class="va">`% Grads`</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span>, col <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Relationship between Poverty and Graduation Rates"</span>,</span>
+<span>       x <span class="op">=</span> <span class="st">"% Poverty"</span>, y <span class="op">=</span> <span class="st">"% Graduation Rate"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="project_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="feature-engineering" class="level4"><h4 class="anchored" data-anchor-id="feature-engineering">3. <strong>Feature Engineering</strong>
+</h4>
+<ul>
+<li>Derive new columns or metrics. For instance:
+<ul>
+<li>Combine <code>% Asian</code>, <code>% Black</code>, <code>% Hispanic</code>, and <code>% White</code> into a diversity index.</li>
+<li>Calculate ratios like <code># Grads</code> / <code># Total Cohort</code>.</li>
+</ul>
+</li>
+</ul></section><section id="statistical-modelinganalysis" class="level4"><h4 class="anchored" data-anchor-id="statistical-modelinganalysis">4. <strong>Statistical Modeling/Analysis</strong>
+</h4>
+<p>Depending on your specific research questions, potential approaches could include: - <strong>Linear regression</strong> to examine the relationship between school characteristics and academic outcomes. - <strong>ANOVA</strong> to compare means across categories (e.g., charter vs.&nbsp;non-charter schools). - <strong>Clustering</strong> to group schools based on characteristics.</p>
+<div class="cell">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">`% Grads`</span> <span class="op">~</span> <span class="va">`% Poverty`</span> <span class="op">+</span> <span class="va">`% Asian`</span> <span class="op">+</span> <span class="va">`% Black`</span> <span class="op">+</span> <span class="va">`% Hispanic`</span> <span class="op">+</span> <span class="va">`% White`</span>, data <span class="op">=</span> <span class="va">merged_data</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<details><summary>
+Summary
+</summary><div class="cell">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = `% Grads` ~ `% Poverty` + `% Asian` + `% Black` + 
+    `% Hispanic` + `% White`, data = merged_data)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-83.560  -5.175   3.412  10.896  31.235 
+
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)   179.018      2.926   61.19   &lt;2e-16 ***
+`% Poverty`   -46.185      1.338  -34.51   &lt;2e-16 ***
+`% Asian`     -44.866      3.294  -13.62   &lt;2e-16 ***
+`% Black`     -70.362      3.289  -21.39   &lt;2e-16 ***
+`% Hispanic`  -62.061      3.216  -19.30   &lt;2e-16 ***
+`% White`     -74.298      3.333  -22.29   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 17.2 on 29936 degrees of freedom
+Multiple R-squared:  0.1865,    Adjusted R-squared:  0.1864 
+F-statistic:  1373 on 5 and 29936 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+</details></section><section id="combining-datasets" class="level4"><h4 class="anchored" data-anchor-id="combining-datasets">5. <strong>Combining Datasets</strong>
+</h4>
+<p>Merge <code>GRAD_RATES</code> with <code>DEMOGRAPHICS</code> on a common identifier (e.g., <code>DBN</code>) to analyze the interaction between demographic and performance data:</p>
+<div class="cell">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">combined_data</span> <span class="op">&lt;-</span> <span class="va">merged_data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section></section><section id="analysis-interpretation" class="level3"><h3 class="anchored" data-anchor-id="analysis-interpretation"><strong>Analysis Interpretation</strong></h3>
+<section id="linear-regression-model" class="level4"><h4 class="anchored" data-anchor-id="linear-regression-model"><strong>Linear Regression Model</strong></h4>
+<ul>
+<li><p><strong>Intercept (179.018)</strong>: This represents the expected graduation rate (<code>% Grads</code>) when all other predictors are zero. This number is likely not meaningful on its own, as the percentage of ethnicities or poverty levels being zero may not be realistic.</p></li>
+<li>
+<p><strong>Coefficients</strong>:</p>
+<ul>
+<li>
+<strong><code>% Poverty</code> (-46.185)</strong>: A one percentage point increase in poverty is associated with a 46.2 percentage point decrease in the graduation rate, which is a strong negative relationship.</li>
+<li>
+<strong><code>% Asian</code> (-44.866)</strong>: A one percentage point increase in the percentage of Asian students is associated with a 44.9 percentage point decrease in the graduation rate. This result may seem counterintuitive or require further exploration of the underlying data.</li>
+<li>
+<strong><code>% Black</code> (-70.362)</strong>: A one percentage point increase in the percentage of Black students is associated with a 70.4 percentage point decrease in the graduation rate. Again, this could indicate important sociocultural or systemic factors that need further investigation.</li>
+<li>
+<strong><code>% Hispanic</code> (-62.061)</strong>: Similar to the other ethnicity-based coefficients, a higher percentage of Hispanic students is associated with a decrease in graduation rates, though it’s slightly smaller than the effect for Black students.</li>
+<li>
+<strong><code>% White</code> (-74.298)</strong>: A one percentage point increase in the percentage of White students is associated with a 74.3 percentage point decrease in the graduation rate.</li>
+</ul>
+</li>
+</ul></section><section id="interpretation-of-significance" class="level4"><h4 class="anchored" data-anchor-id="interpretation-of-significance">
+<strong>Interpretation of Significance</strong>:</h4>
+<ul>
+<li><p>All predictors (<code>% Poverty</code>, <code>% Asian</code>, <code>% Black</code>, <code>% Hispanic</code>, <code>% White</code>) are statistically significant with p-values less than 2e-16, indicating strong evidence against the null hypothesis (no effect).</p></li>
+<li><p><strong>Residual Standard Error</strong>: The standard error of the residuals is <strong>17.2</strong>, which tells you the average distance that the observed values fall from the regression line.</p></li>
+<li><p><strong>R-squared</strong>: The <strong>Multiple R-squared (0.1865)</strong> indicates that about 18.65% of the variability in the graduation rates is explained by these predictors. This is relatively low, suggesting other factors not included in this model contribute significantly to graduation rates.</p></li>
+<li><p><strong>F-statistic (1373)</strong>: The high value of the F-statistic indicates that at least one of the predictors in the model has a non-zero effect on the graduation rate.</p></li>
+</ul>
+<hr></section><section id="correlation-matrix" class="level4"><h4 class="anchored" data-anchor-id="correlation-matrix"><strong>Correlation Matrix</strong></h4>
+<p>The correlation matrix for <code>% Grads</code>, <code>% Total Regents of Cohort</code>, and <code>% Poverty</code> shows:</p>
+<ul>
+<li><p><strong>% Grads and % Total Regents of Cohort (0.9489)</strong>: There is a very high positive correlation between graduation rates and the percentage of students achieving total regents. This indicates that schools with higher graduation rates tend to also have higher percentages of students passing regents exams.</p></li>
+<li><p><strong>% Grads and % Poverty (-0.3887)</strong>: There is a moderate negative correlation between graduation rates and poverty percentage. This confirms that higher poverty rates are associated with lower graduation rates.</p></li>
+<li><p><strong>% Total Regents of Cohort and % Poverty (-0.4207)</strong>: A similar moderate negative correlation exists between regents performance and poverty levels. This suggests that higher poverty rates tend to correlate with lower academic achievement in regents exams.</p></li>
+</ul>
+<hr></section></section></section><section id="question-b-do-certain-school-characteristics-lend-to-better-academic-performance" class="level2"><h2 class="anchored" data-anchor-id="question-b-do-certain-school-characteristics-lend-to-better-academic-performance"><strong>Question B: Do certain school characteristics lend to better academic performance?</strong></h2>
+<p>To answer this question, you need to identify school characteristics that are associated with higher academic performance. Since you’ve been working with variables like <strong>graduation rates</strong> and <strong>regents exam performance</strong>, it’s important to focus on the characteristics that could be relevant to academic outcomes, such as:</p>
+<ul>
+<li><p><strong>School demographic composition</strong> (e.g., percentage of Asian, Black, Hispanic, White students)</p></li>
+<li><p><strong>Socioeconomic factors</strong> (e.g., percentage of students from low-income backgrounds, as represented by the <code>% Poverty</code>)</p></li>
+<li><p><strong>School resources and facilities</strong> (e.g., teacher quality, school funding, availability of extracurricular programs)</p></li>
+</ul>
+<hr>
+<section id="graduation-rates-grad_rates" class="level3"><h3 class="anchored" data-anchor-id="graduation-rates-grad_rates"><strong>1. Graduation Rates (<code>GRAD_RATES</code>)</strong></h3>
+<p><strong>Visualization:</strong><br>
+- Plot graduation rates (<code>% Grads</code>) against characteristics such as <code>Cohort Year</code> or <code>% Total Regents of Cohort</code>.<br>
+- Boxplots to compare <code>% Grads</code> across different <code>Categories</code> of schools (e.g., “All Students”, “English Language Learners”).</p>
+<p><strong>Code:</strong></p>
+<div class="cell">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Scatter plot: % Grads vs % Total Regents of Cohort</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">GRAD_RATES</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">`% Total Regents of Cohort`</span>, y <span class="op">=</span> <span class="va">`% Grads`</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.5</span>, color <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Graduation Rates vs. Regents Participation"</span>,</span>
+<span>       x <span class="op">=</span> <span class="st">"Percentage of Regents Participation"</span>,</span>
+<span>       y <span class="op">=</span> <span class="st">"Graduation Rates"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="project_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<hr></section><section id="demographics-demographics" class="level3"><h3 class="anchored" data-anchor-id="demographics-demographics"><strong>2. Demographics (<code>DEMOGRAPHICS</code>)</strong></h3>
+<p><strong>Visualization:</strong><br>
+- Correlation between <code>% Poverty</code> and racial demographics (<code>% Asian</code>, <code>% Black</code>, etc.) with performance indicators.<br>
+- Bar chart for <code>Total Enrollment</code> grouped by years.</p>
+<p><strong>Code:</strong></p>
+<div class="cell">
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Scatter plot: % Poverty vs % Asian</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">DEMOGRAPHICS</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">`% Poverty`</span>, y <span class="op">=</span> <span class="va">`% Asian`</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.5</span>, color <span class="op">=</span> <span class="st">"green"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Relationship Between Poverty and Asian Demographics"</span>,</span>
+<span>       x <span class="op">=</span> <span class="st">"Percentage of Poverty"</span>,</span>
+<span>       y <span class="op">=</span> <span class="st">"Percentage of Asian Students"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 1002 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="project_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Bar chart: Total Enrollment over Years</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">DEMOGRAPHICS</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Year</span>, y <span class="op">=</span> <span class="va">`Total Enrollment`</span>, fill <span class="op">=</span> <span class="va">Year</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>stat <span class="op">=</span> <span class="st">"identity"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Total Enrollment Over Years"</span>,</span>
+<span>       x <span class="op">=</span> <span class="st">"Year"</span>,</span>
+<span>       y <span class="op">=</span> <span class="st">"Total Enrollment"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="project_files/figure-html/unnamed-chunk-13-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<hr></section><section id="regents-exam-data-regents" class="level3"><h3 class="anchored" data-anchor-id="regents-exam-data-regents"><strong>3. Regents Exam Data (<code>REGENTS</code>)</strong></h3>
+<p><strong>Visualization:</strong><br>
+- Histogram of <code>Mean Score</code> distribution.<br>
+- Bar chart for <code>Percent Scoring 65 or Above</code> across school types.</p>
+<p><strong>Code:</strong></p>
+<div class="cell">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Ensure that the Mean Score column is numeric</span></span>
+<span><span class="va">REGENTS</span><span class="op">$</span><span class="va">`Mean Score`</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="va">REGENTS</span><span class="op">$</span><span class="va">`Mean Score`</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: NAs introduced by coercion</code></pre>
+</div>
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Handle any non-numeric values in Mean Score (e.g., replace with NA)</span></span>
+<span><span class="va">REGENTS</span> <span class="op">&lt;-</span> <span class="va">REGENTS</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">`Mean Score`</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Histogram of Mean Scores</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">REGENTS</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">`Mean Score`</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">5</span>, fill <span class="op">=</span> <span class="st">"orange"</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Distribution of Regents Exam Scores"</span>,</span>
+<span>       x <span class="op">=</span> <span class="st">"Mean Score"</span>,</span>
+<span>       y <span class="op">=</span> <span class="st">"Frequency"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="project_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Bar chart: Percent Scoring 65 or Above by School Type</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">REGENTS</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">`School Type`</span>, y <span class="op">=</span> <span class="va">`Percent Scoring 65 or Above`</span>, fill <span class="op">=</span> <span class="va">`School Type`</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>stat <span class="op">=</span> <span class="st">"identity"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Performance Above Passing (65) by School Type"</span>,</span>
+<span>       x <span class="op">=</span> <span class="st">"School Type"</span>,</span>
+<span>       y <span class="op">=</span> <span class="st">"Percentage Scoring 65 or Above"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">45</span>, hjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="project_files/figure-html/unnamed-chunk-14-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<hr></section><section id="ela-data-200612-and-201318" class="level3"><h3 class="anchored" data-anchor-id="ela-data-200612-and-201318"><strong>4. ELA Data (2006–12 and 2013–18)</strong></h3>
+<p><strong>Visualization:</strong><br>
+- Line chart for performance trends in <code>Pct.Level.3.and.4</code> by Number.Tested.</p>
+<p><strong>Code:</strong></p>
+<div class="cell">
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Line chart: Mean Scale Score by Year (ELA 2006–12)</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">ELA_2006_12_SCHOOL</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Pct.Level.3.and.4</span>, y <span class="op">=</span> <span class="va">`Number.Tested`</span>, color <span class="op">=</span> <span class="va">Grade</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"ELA Mean Scale Score Over Time (2006-2012)"</span>,</span>
+<span>       x <span class="op">=</span> <span class="st">"Year"</span>,</span>
+<span>       y <span class="op">=</span> <span class="st">"Mean Scale Score"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+ℹ Please use `linewidth` instead.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="project_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<hr></section><section id="math-data-201317" class="level3"><h3 class="anchored" data-anchor-id="math-data-201317"><strong>5. Math Data (2013–17)</strong></h3>
+<p><strong>Visualization:</strong><br>
+- Plot <code>Mean Scale Score</code> trends over time.<br>
+- Bar chart comparing <code>Level 3/4 Proficiency</code> across grades.</p>
+<p><strong>Code:</strong></p>
+<div class="cell">
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Line chart: Math Mean Scale Score over Years</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">MATH_2006_12_SCHOOL</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Year</span>, y <span class="op">=</span> <span class="va">`Mean.Scale.Score`</span>, color <span class="op">=</span> <span class="va">Grade</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Math Mean Scale Score Over Time (2013-2017)"</span>,</span>
+<span>       x <span class="op">=</span> <span class="st">"Year"</span>,</span>
+<span>       y <span class="op">=</span> <span class="st">"Mean Scale Score"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="project_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Bar chart: Proficiency Levels 3/4 across Grades</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">MATH_2006_12_SCHOOL</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Grade</span>, y <span class="op">=</span> <span class="va">`Pct.Level.3.and.4`</span>, fill <span class="op">=</span> <span class="va">Grade</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>stat <span class="op">=</span> <span class="st">"identity"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Math Proficiency Levels (3/4) Across Grades"</span>,</span>
+<span>       x <span class="op">=</span> <span class="st">"Grade"</span>,</span>
+<span>       y <span class="op">=</span> <span class="st">"Percentage Proficient (Levels 3/4)"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">45</span>, hjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="project_files/figure-html/unnamed-chunk-16-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<hr>
+<p>These visualizations will help identify patterns and relationships for academic performance with respect to school characteristics, demographics, and other contextual factors. Let me know if you want me to focus on a specific dataset or refine these plots!</p>
+<div class="cell">
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Select numeric columns</span></span>
+<span><span class="va">grad_rates_cor_data</span> <span class="op">&lt;-</span> <span class="va">GRAD_RATES</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"% Grads"</span>, <span class="st">"% Total Regents of Cohort"</span>, </span>
+<span>                                      <span class="st">"% Advanced Regents of Cohort"</span>, </span>
+<span>                                      <span class="st">"% Regents without Advanced of Cohort"</span>, </span>
+<span>                                      <span class="st">"% Local of Cohort"</span>, <span class="st">"% Dropout"</span><span class="op">)</span><span class="op">]</span></span>
+<span></span>
+<span><span class="co"># Compute correlation matrix</span></span>
+<span><span class="va">grad_rates_corr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">grad_rates_cor_data</span>, use <span class="op">=</span> <span class="st">"complete.obs"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># # Print correlation matrix</span></span>
+<span><span class="co"># print(grad_rates_corr)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Select numeric columns</span></span>
+<span><span class="va">demographics_cor_data</span> <span class="op">&lt;-</span> <span class="va">DEMOGRAPHICS</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"% Poverty"</span>, <span class="st">"% Asian"</span>, <span class="st">"% Black"</span>, </span>
+<span>                                          <span class="st">"% Hispanic"</span>, <span class="st">"% White"</span>, </span>
+<span>                                          <span class="st">"% Students with Disabilities"</span>, </span>
+<span>                                          <span class="st">"% English Language Learners"</span><span class="op">)</span><span class="op">]</span></span>
+<span></span>
+<span><span class="co"># Compute correlation matrix</span></span>
+<span><span class="va">demographics_corr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">demographics_cor_data</span>, use <span class="op">=</span> <span class="st">"complete.obs"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># # Print correlation matrix</span></span>
+<span><span class="co"># print(demographics_corr)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="correlation-analysis-insights" class="level3"><h3 class="anchored" data-anchor-id="correlation-analysis-insights"><strong>Correlation Analysis Insights</strong></h3>
+<section id="demographics-correlation" class="level4"><h4 class="anchored" data-anchor-id="demographics-correlation"><strong>1. Demographics Correlation</strong></h4>
+<ul>
+<li>
+<strong>Strong Positive Correlations:</strong>
+<ul>
+<li>
+<code>% Poverty</code> and <code>% Hispanic</code> (0.471): Higher poverty rates are associated with a greater percentage of Hispanic students.</li>
+<li>
+<code>% Poverty</code> and <code>% English Language Learners</code> (0.338): Poverty levels increase with the percentage of English Language Learners.</li>
+</ul>
+</li>
+<li>
+<strong>Strong Negative Correlations:</strong>
+<ul>
+<li>
+<code>% Poverty</code> and <code>% White</code> (-0.786): Higher poverty levels are associated with fewer White students.</li>
+<li>
+<code>% Black</code> and <code>% Asian</code> (-0.470): Schools with a higher percentage of Black students tend to have fewer Asian students.</li>
+</ul>
+</li>
+<li>
+<strong>Weaker Correlations:</strong>
+<ul>
+<li>
+<code>% Students with Disabilities</code> has generally low correlations with other variables, suggesting its prevalence is not strongly tied to demographic percentages or poverty levels.</li>
+</ul>
+</li>
+</ul></section><section id="graduation-rates-correlation" class="level4"><h4 class="anchored" data-anchor-id="graduation-rates-correlation"><strong>2. Graduation Rates Correlation</strong></h4>
+<ul>
+<li>
+<strong>Strong Positive Correlations:</strong>
+<ul>
+<li>
+<code>% Grads</code> and <code>% Total Regents of Cohort</code> (0.950): A high percentage of graduates correlates strongly with Regents participation.</li>
+<li>
+<code>% Grads</code> and <code>% Advanced Regents of Cohort</code> (0.454): Schools with more advanced Regents completion have higher graduation rates.</li>
+</ul>
+</li>
+<li>
+<strong>Strong Negative Correlations:</strong>
+<ul>
+<li>
+<code>% Grads</code> and <code>% Dropout</code> (-0.706): As expected, schools with higher dropout rates have lower graduation percentages.</li>
+<li>
+<code>% Dropout</code> and <code>% Total Regents of Cohort</code> (-0.721): Schools with higher dropout rates tend to have lower Regents participation.</li>
+</ul>
+</li>
+<li>
+<strong>Interesting Observations:</strong>
+<ul>
+<li>
+<code>% Local of Cohort</code> and <code>% Grads</code> (-0.115): Local diplomas correlate weakly and negatively with graduation rates, likely because schools with higher Regents completion overshadow the role of local diplomas.</li>
+</ul>
+</li>
+</ul>
+<hr></section></section><section id="visualizing-correlation-matrices" class="level3"><h3 class="anchored" data-anchor-id="visualizing-correlation-matrices"><strong>Visualizing Correlation Matrices</strong></h3>
+<section id="demographics-correlation-visualization" class="level4"><h4 class="anchored" data-anchor-id="demographics-correlation-visualization"><strong>1. Demographics Correlation Visualization</strong></h4>
+<div class="cell">
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/corrplot/man/corrplot.html">corrplot</a></span><span class="op">(</span><span class="va">demographics_corr</span>, method <span class="op">=</span> <span class="st">"color"</span>, type <span class="op">=</span> <span class="st">"lower"</span>,</span>
+<span>         title <span class="op">=</span> <span class="st">"Correlation Matrix: Demographics"</span>, </span>
+<span>         tl.cex <span class="op">=</span> <span class="fl">0.8</span>, mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="project_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="graduation-rates-correlation-visualization" class="level4"><h4 class="anchored" data-anchor-id="graduation-rates-correlation-visualization"><strong>2. Graduation Rates Correlation Visualization</strong></h4>
+<div class="cell">
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/corrplot/man/corrplot.html">corrplot</a></span><span class="op">(</span><span class="va">grad_rates_corr</span>, method <span class="op">=</span> <span class="st">"circle"</span>, type <span class="op">=</span> <span class="st">"upper"</span>,</span>
+<span>         title <span class="op">=</span> <span class="st">"Correlation Matrix: Graduation Rates"</span>, </span>
+<span>         tl.cex <span class="op">=</span> <span class="fl">0.8</span>, mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="project_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<hr></section></section><section id="key-implications-for-question-b" class="level3"><h3 class="anchored" data-anchor-id="key-implications-for-question-b"><strong>Key Implications for Question B</strong></h3>
+<ol type="1">
+<li>
+<strong>From Demographics</strong>:
+<ul>
+<li>Schools with a high percentage of poverty may face challenges in academic outcomes, indicated by lower percentages of Asian or White students in high-poverty schools.</li>
+<li>English Language Learners and Hispanic students tend to be overrepresented in high-poverty schools.</li>
+</ul>
+</li>
+<li>
+<strong>From Graduation Rates</strong>:
+<ul>
+<li>Schools that emphasize Regents exams, especially advanced Regents diplomas, tend to perform better in terms of graduation rates.</li>
+<li>Dropout rates strongly inversely impact academic success metrics like graduation rates.</li>
+</ul>
+</li>
+</ol></section><section id="question-c-what-relationships-exist-between-school-resources-and-academic-performance" class="level3"><h3 class="anchored" data-anchor-id="question-c-what-relationships-exist-between-school-resources-and-academic-performance">Question C: <strong>What relationships exist between school resources and academic performance?</strong>
+</h3>
+<p>To address this question, we need to focus on datasets that provide information about <strong>school resources</strong> (e.g., enrollment, teacher-to-student ratios, or other resource metrics) and link these with <strong>academic performance indicators</strong> (graduation rates, Regents scores, ELA/MATH performance).</p>
+<section id="proposed-approach" class="level4"><h4 class="anchored" data-anchor-id="proposed-approach"><strong>Proposed Approach:</strong></h4>
+<ol type="1">
+<li>
+<strong>Identify Relevant Variables:</strong>
+<ul>
+<li>From <strong>DEMOGRAPHICS</strong>, resource-related columns such as <code>Total Enrollment</code>, <code>% Students with Disabilities</code>, and <code>% English Language Learners</code>.</li>
+<li>From <strong>REGENTS, GRAD_RATES</strong>, and <strong>ELA/MATH datasets</strong>, performance metrics such as:
+<ul>
+<li>
+<code>% Grads</code>, <code>% Regents Scores &gt;= 65</code>, and <code>% Regents Scores &gt;= 80</code>.</li>
+<li>
+<code>% Level 3 and 4</code> in ELA/MATH datasets.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<strong>Merge Relevant Datasets (if needed):</strong>
+<ul>
+<li>Create relationships between <strong>resources</strong> and <strong>performance</strong> by linking datasets using the <code>DBN</code> column.</li>
+<li>Summarize or aggregate resource data as required.</li>
+</ul>
+</li>
+<li>
+<strong>Analyze Relationships:</strong>
+<ul>
+<li>
+<strong>Correlation Analysis</strong> between resource variables and academic outcomes.</li>
+<li>
+<strong>Regression Modeling</strong> to understand the contribution of specific resources to performance.</li>
+</ul>
+</li>
+<li>
+<strong>Visualizations:</strong>
+<ul>
+<li>Scatterplots and correlation matrices to explore relationships.</li>
+<li>Bar plots or boxplots to compare performance across resource levels.</li>
+</ul>
+</li>
+</ol>
+<hr></section></section><section id="step-1-load-necessary-datasets" class="level3"><h3 class="anchored" data-anchor-id="step-1-load-necessary-datasets"><strong>Step 1: Load Necessary Datasets</strong></h3>
+<p>We need the following datasets: 1. <strong>DEMOGRAPHICS</strong> for resource indicators. 2. <strong>GRAD_RATES</strong> for graduation-related performance metrics. 3. <strong>REGENTS</strong> for Regents exam performance. 4. <strong>ELA_2013_18_SCHOOL</strong> and <strong>MATH_2013_17_SCHOOL</strong> for ELA and Math performance.</p>
+</section><section id="step-2-prepare-the-datasets" class="level3"><h3 class="anchored" data-anchor-id="step-2-prepare-the-datasets"><strong>Step 2: Prepare the Datasets</strong></h3>
+<p>Each dataset may need cleaning or aggregation before merging: - <strong>Aggregate ELA and Math</strong>: Group data by <code>DBN</code> and calculate averages (e.g., <code>% Level 3.4</code>). - <strong>Select Key Columns</strong>: Reduce the datasets to columns of interest (to minimize memory usage and simplify merging).</p>
+</section><section id="step-3-merge-the-datasets" class="level3"><h3 class="anchored" data-anchor-id="step-3-merge-the-datasets"><strong>Step 3: Merge the Datasets</strong></h3>
+<p>Merge datasets using <code>DBN</code> as the common key.</p>
+<hr></section><section id="code-to-merge-and-save-combined-dataset" class="level3"><h3 class="anchored" data-anchor-id="code-to-merge-and-save-combined-dataset"><strong>Code to Merge and Save Combined Dataset</strong></h3>
+<div class="cell">
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># First, load necessary libraries</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Join GRAD_RATES and DEMOGRAPHICS</span></span>
+<span><span class="va">merged_data</span> <span class="op">&lt;-</span> <span class="va">GRAD_RATES</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span><span class="va">DEMOGRAPHICS</span>, by <span class="op">=</span> <span class="st">"DBN"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in inner_join(., DEMOGRAPHICS, by = "DBN"): Detected an unexpected many-to-many relationship between `x` and `y`.
+ℹ Row 1 of `x` matches multiple rows in `y`.
+ℹ Row 56 of `y` matches multiple rows in `x`.
+ℹ If a many-to-many relationship is expected, set `relationship =
+  "many-to-many"` to silence this warning.</code></pre>
+</div>
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Add REGENTS data (aggregated)</span></span>
+<span><span class="va">regents_aggregated</span> <span class="op">&lt;-</span> <span class="va">REGENTS</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">`School DBN`</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>`% Scoring 65 or Above` <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">`Percent Scoring 65 or Above`</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>            `% Scoring 80 or Above` <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">`Percent Scoring 80 or Above`</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: There were 2226 warnings in `summarise()`.
+The first warning was:
+ℹ In argument: `% Scoring 65 or Above = mean(`Percent Scoring 65 or Above`,
+  na.rm = TRUE)`.
+ℹ In group 1: `School DBN = "01M034"`.
+Caused by warning in `mean.default()`:
+! argument is not numeric or logical: returning NA
+ℹ Run `dplyr::last_dplyr_warnings()` to see the 2225 remaining warnings.</code></pre>
+</div>
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">merged_data</span> <span class="op">&lt;-</span> <span class="va">merged_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span><span class="va">regents_aggregated</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"DBN"</span> <span class="op">=</span> <span class="st">"School DBN"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Add ELA 2006-12 data (aggregated)</span></span>
+<span><span class="va">ela_aggregated_2006_12</span> <span class="op">&lt;-</span> <span class="va">ELA_2006_12_SCHOOL</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">DBN</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>`% ELA Level 3.4` <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">`Pct.Level.3.and.4`</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: There were 1139 warnings in `summarise()`.
+The first warning was:
+ℹ In argument: `% ELA Level 3.4 = mean(Pct.Level.3.and.4, na.rm = TRUE)`.
+ℹ In group 1: `DBN = "01M015"`.
+Caused by warning in `mean.default()`:
+! argument is not numeric or logical: returning NA
+ℹ Run `dplyr::last_dplyr_warnings()` to see the 1138 remaining warnings.</code></pre>
+</div>
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">merged_data</span> <span class="op">&lt;-</span> <span class="va">merged_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span><span class="va">ela_aggregated_2006_12</span>, by <span class="op">=</span> <span class="st">"DBN"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Add ELA 2013-18 data (aggregated)</span></span>
+<span><span class="va">ela_aggregated_2013_18</span> <span class="op">&lt;-</span> <span class="va">ELA_2013_18_SCHOOL</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">DBN</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>`% ELA Level 3.4` <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">`Level.3.4..`</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: There were 1119 warnings in `summarise()`.
+The first warning was:
+ℹ In argument: `% ELA Level 3.4 = mean(Level.3.4.., na.rm = TRUE)`.
+ℹ In group 1: `DBN = "01M015"`.
+Caused by warning in `mean.default()`:
+! argument is not numeric or logical: returning NA
+ℹ Run `dplyr::last_dplyr_warnings()` to see the 1118 remaining warnings.</code></pre>
+</div>
+<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">merged_data</span> <span class="op">&lt;-</span> <span class="va">merged_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span><span class="va">ela_aggregated_2013_18</span>, by <span class="op">=</span> <span class="st">"DBN"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Add MATH 2013-17 data (aggregated)</span></span>
+<span><span class="co"># Aggregate Math data</span></span>
+<span><span class="co"># Aggregate Math data using the correct column</span></span>
+<span><span class="va">math_aggregated</span> <span class="op">&lt;-</span> <span class="va">MATH_2013_17_SCHOOL</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">DBN</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>`% Math Level 3.4` <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">`Level3.4_.`</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: There were 1138 warnings in `summarise()`.
+The first warning was:
+ℹ In argument: `% Math Level 3.4 = mean(Level3.4_., na.rm = TRUE)`.
+ℹ In group 1: `DBN = "01M015"`.
+Caused by warning in `mean.default()`:
+! argument is not numeric or logical: returning NA
+ℹ Run `dplyr::last_dplyr_warnings()` to see the 1137 remaining warnings.</code></pre>
+</div>
+<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Merge the aggregated Math data with the main data</span></span>
+<span><span class="va">merged_data</span> <span class="op">&lt;-</span> <span class="va">merged_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span><span class="va">math_aggregated</span>, by <span class="op">=</span> <span class="st">"DBN"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<hr></section><section id="regression-models" class="level3"><h3 class="anchored" data-anchor-id="regression-models">2. <strong>Regression Models</strong>:</h3>
+<p>To explore whether certain school characteristics are associated with better academic performance, you can create linear regression models. These models will help you understand how demographic factors and other school characteristics influence performance outcomes (e.g., graduation rates, Regents exam scores, ELA, Math).</p>
+<div class="cell">
+<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Model for Graduation Rates based on School Characteristics</span></span>
+<span><span class="va">grad_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">`% Grads`</span> <span class="op">~</span> <span class="va">`% Poverty`</span> <span class="op">+</span> <span class="va">`% Asian`</span> <span class="op">+</span> <span class="va">`% Black`</span> <span class="op">+</span> <span class="va">`% Hispanic`</span> <span class="op">+</span> <span class="va">`% White`</span>, data <span class="op">=</span> <span class="va">merged_data</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">grad_model</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = `% Grads` ~ `% Poverty` + `% Asian` + `% Black` + 
+    `% Hispanic` + `% White`, data = merged_data)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-41.389  -4.025   1.330   5.958  15.495 
+
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)    82.702      2.762  29.942  &lt; 2e-16 ***
+`% Poverty`   -22.071      1.002 -22.018  &lt; 2e-16 ***
+`% Asian`      40.801      3.271  12.473  &lt; 2e-16 ***
+`% Black`      23.134      3.187   7.260 4.10e-13 ***
+`% Hispanic`   23.232      3.095   7.506 6.49e-14 ***
+`% White`      18.872      3.121   6.046 1.52e-09 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 8.613 on 12665 degrees of freedom
+  (679 observations deleted due to missingness)
+Multiple R-squared:  0.2246,    Adjusted R-squared:  0.2243 
+F-statistic: 733.8 on 5 and 12665 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Model for Regents Exam Performance</span></span>
+<span><span class="va">regents_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">`% Total Regents of Cohort`</span> <span class="op">~</span> <span class="va">`% Poverty`</span> <span class="op">+</span> <span class="va">`% Asian`</span> <span class="op">+</span> <span class="va">`% Black`</span> <span class="op">+</span> <span class="va">`% Hispanic`</span> <span class="op">+</span> <span class="va">`% White`</span>, data <span class="op">=</span> <span class="va">merged_data</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">regents_model</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = `% Total Regents of Cohort` ~ `% Poverty` + `% Asian` + 
+    `% Black` + `% Hispanic` + `% White`, data = merged_data)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-94.096  -6.084   1.742   8.175  21.450 
+
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)    86.992      3.767  23.091  &lt; 2e-16 ***
+`% Poverty`   -24.788      1.367 -18.130  &lt; 2e-16 ***
+`% Asian`      38.208      4.462   8.564  &lt; 2e-16 ***
+`% Black`      14.379      4.346   3.308 0.000941 ***
+`% Hispanic`   15.808      4.221   3.745 0.000181 ***
+`% White`      12.150      4.257   2.854 0.004325 ** 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 11.75 on 12665 degrees of freedom
+  (679 observations deleted due to missingness)
+Multiple R-squared:  0.2038,    Adjusted R-squared:  0.2035 
+F-statistic: 648.4 on 5 and 12665 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+</section><section id="visualization" class="level3"><h3 class="anchored" data-anchor-id="visualization">3. <strong>Visualization</strong>:</h3>
+<p>After running the regression models, you can visualize the relationship between key variables (e.g., poverty, ethnicity) and academic outcomes like graduation rates, Regents performance, Math, and ELA scores.</p>
+<div class="cell">
+<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Plot the relationship between % Poverty and % Grads</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">merged_data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">`% Poverty`</span>, y <span class="op">=</span> <span class="va">`% Grads`</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Relationship between Poverty and Graduation Rate"</span>,</span>
+<span>       x <span class="op">=</span> <span class="st">"Percentage of Poverty"</span>,</span>
+<span>       y <span class="op">=</span> <span class="st">"Percentage of Graduates"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 679 rows containing non-finite outside the scale range
+(`stat_smooth()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 679 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="project_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Visualize relationship between % Black and % Hispanic</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">DEMOGRAPHICS</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">`% Black`</span>, y <span class="op">=</span> <span class="va">`% Hispanic`</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span>, col <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Relationship between Black and Hispanic Students"</span>,</span>
+<span>       x <span class="op">=</span> <span class="st">"Percentage of Black Students"</span>,</span>
+<span>       y <span class="op">=</span> <span class="st">"Percentage of Hispanic Students"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="project_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="summary-of-the-regression-models" class="level3"><h3 class="anchored" data-anchor-id="summary-of-the-regression-models">Summary of the Regression Models</h3>
+<section id="graduation-rates-model" class="level4"><h4 class="anchored" data-anchor-id="graduation-rates-model">1. <strong>Graduation Rates Model:</strong>
+</h4>
+<p>The regression model for graduation rates based on school characteristics shows significant relationships with several variables:</p>
+<ul>
+<li><p><strong>% Poverty</strong>: A negative relationship with graduation rates. As the percentage of students in poverty increases, the graduation rate decreases. The coefficient is -22.071, meaning that for each percentage increase in poverty, the graduation rate drops by 22.1 percentage points. This is highly significant with a p-value &lt; 2e-16.</p></li>
+<li><p><strong>% Asian</strong>: A positive relationship with graduation rates. The coefficient is 40.801, meaning that for each percentage increase in Asian students, the graduation rate increases by 40.8 percentage points, which is also highly significant.</p></li>
+<li><p><strong>% Black</strong> and <strong>% Hispanic</strong>: Both have positive relationships with graduation rates with coefficients of 23.134 and 23.232, respectively. These are also statistically significant.</p></li>
+<li><p><strong>% White</strong>: Positive relationship with a coefficient of 18.872, suggesting that higher percentages of White students are associated with higher graduation rates. This is statistically significant as well.</p></li>
+</ul>
+<p><strong>Model Fit</strong>: - <strong>R-squared</strong>: 0.2246, meaning that about 22.46% of the variability in graduation rates can be explained by the school characteristics in the model. - <strong>Adjusted R-squared</strong>: 0.2243, slightly lower than the R-squared, taking into account the number of predictors. - <strong>F-statistic</strong>: 733.8 with a p-value &lt; 2.2e-16, indicating that the model as a whole is statistically significant.</p>
+</section><section id="regents-exam-performance-model" class="level4"><h4 class="anchored" data-anchor-id="regents-exam-performance-model">2. <strong>Regents Exam Performance Model:</strong>
+</h4>
+<p>The regression model for Regents exam performance also shows significant relationships:</p>
+<ul>
+<li><p><strong>% Poverty</strong>: A negative relationship with Regents exam performance. As the percentage of students in poverty increases, the Regents performance decreases. The coefficient is -24.788, meaning a 1% increase in poverty corresponds to a 24.8 percentage point decrease in Regents scores.</p></li>
+<li><p><strong>% Asian</strong>: Positive relationship with Regents exam performance, similar to graduation rates, with a coefficient of 38.208.</p></li>
+<li><p><strong>% Black</strong> and <strong>% Hispanic</strong>: Both have positive relationships with Regents exam performance with coefficients of 14.379 and 15.808, respectively.</p></li>
+<li><p><strong>% White</strong>: Positive relationship with a coefficient of 12.150, suggesting that higher percentages of White students are associated with higher Regents performance.</p></li>
+</ul>
+<p><strong>Model Fit</strong>: - <strong>R-squared</strong>: 0.2038, meaning that about 20.38% of the variability in Regents performance can be explained by the school characteristics in the model. - <strong>Adjusted R-squared</strong>: 0.2035, similar to the R-squared, accounting for the number of predictors. - <strong>F-statistic</strong>: 648.4 with a p-value &lt; 2.2e-16, indicating that the model is statistically significant.</p>
+</section></section><section id="key-insights" class="level3"><h3 class="anchored" data-anchor-id="key-insights">Key Insights:</h3>
+<ul>
+<li>
+<strong>Poverty</strong> consistently shows a negative relationship with both graduation rates and Regents performance, highlighting the significant challenge that higher poverty levels pose for academic achievement.</li>
+<li>
+<strong>Ethnicity</strong> (particularly Asian, Black, Hispanic, and White percentages) has a positive relationship with academic outcomes, with Asian students showing the strongest positive influence on both graduation rates and Regents performance.</li>
+<li>The R-squared values suggest that these models are capturing a moderate amount of the variability in the outcomes, but there may be other factors influencing academic performance that are not included in the current model.</li>
+</ul></section></section></main><!-- /main column --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

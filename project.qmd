@@ -1,0 +1,1088 @@
+---
+title: "Gautam"
+format: 
+  html:
+    
+    code-link: true
+echo: true
+output: html_document
+editor: 
+  markdown: 
+    wrap: 72
+---
+
+<details>
+
+<summary>**Libraries**</summary>
+
+```{r, message=FALSE}
+library(tidyverse)
+library(readxl)
+library(reshape2)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+
+```
+
+</details>
+
+<details>
+
+<summary>**Downloading the data**</summary>
+
+```{r, message=FALSE}
+
+
+# Function to Get NYCED Data Files from URL
+get_nycps_file <- function(fname, sheet) {
+  BASE_URL <- "https://infohub.nyced.org/docs/default-source/default-document-library/"
+  fname_ext <- paste0(fname, ".xlsx")
+  if (!file.exists(fname_ext)) {
+    FILE_URL <- paste0(BASE_URL, fname_ext)
+    download.file(FILE_URL, destfile = fname_ext, mode = "wb")
+  }
+  as.data.frame(read_excel(fname_ext, sheet = sheet))
+}
+
+# Function to Get City of New York Data Files from URL
+get_cony_file <- function(fname, zname, FILE_URL) {
+  if (!file.exists(zname)) {
+    download.file(FILE_URL, destfile = zname, mode = "wb") # download zip file if it does not exist
+  }
+  td <- tempdir() # create temporary directory
+  zip_contents <- unzip(zname, exdir = td) # unzip folder
+  file_path <- grep(fname, zip_contents, value = TRUE) # find the correct file in the zip
+  if (length(file_path) == 0) stop("File not found in the zip archive!")
+  as.data.frame(read.csv(file_path)) # read the correct file
+}
+
+# Load Graduation Rates
+GRAD_RATES <- get_nycps_file("2023-graduation-rates-public-school", "All")
+
+# Load Demographics
+DEMOGRAPHICS <- get_nycps_file("demographic-snapshot-2019-20-to-2023-24-public", "School")
+
+# Load Regents Data
+REGENTS <- get_nycps_file("2014-15-to-2022-23-nyc-regents-overall-and-by-category---public", "All Students")
+
+# Load ELA Data 2006-2012
+ELA_URL_2006 <- "https://data.cityofnewyork.us/api/views/9uqq-k6t8/files/6cb21873-4c19-42ab-aa31-13573b47ed45?download=true&filename=2006-2012%20ELA%20Test%20Results.zip"
+ELA_2006 <- "2006-2012_ELA_Test_Results.zip"
+ELA_2006_12_SCHOOL <- get_cony_file("2006-2012_English_Language_Arts__ELA__Test_Results-_School_-_All_Students.csv", ELA_2006, ELA_URL_2006)
+
+# Load ELA Data 2013-2019
+ELA_URL_2013_19 <- "https://data.cityofnewyork.us/api/views/iebs-5yhr/files/a6ff1ea4-4895-4372-a2d6-bbd0b17e89a4?download=true&filename=2013-2019%20ELA%20Test%20Results.zip"
+ELA_2013_19 <- "2013-2019_ELA_Test_Results.zip"
+ELA_2013_18_SCHOOL <- get_cony_file("2013-2018_School_ELA_Results.csv", ELA_2013_19, ELA_URL_2013_19)
+
+# Load Math Data 2006-2012
+MATH_URL_2006_12 <- "https://data.cityofnewyork.us/api/views/e5c5-ieuv/files/93fd3270-8d2e-47ac-878d-04d96e411168?download=true&filename=2006-2012%20Math%20Test%20Results.zip"
+MATH_2006_12 <- "2006-2012_Math_Test_Results.zip"
+MATH_2006_12_SCHOOL <- get_cony_file("2006_-_2012__Math_Test_Results__-_All_Students.csv", MATH_2006_12, MATH_URL_2006_12)
+
+# Load Math Data 2013-2017
+MATH_URL_2013_17 <- "https://data.cityofnewyork.us/api/views/iebs-5yhr/files/a6ff1ea4-4895-4372-a2d6-bbd0b17e89a4?download=true&filename=2013-2017%20Math%20Test%20Results.zip"
+MATH_2013_17 <- "2013-2017_Math_Test_Results.zip"
+MATH_2013_17_SCHOOL <- tryCatch({
+  get_cony_file("2013-2017_ELA_Test_Results_by_Grade_-_School_-_All.csv", MATH_2013_17, MATH_URL_2013_17)
+}, error = function(e) {
+  message("Error loading Math Data 2013-2017: ", e$message)
+  NULL
+})
+
+
+# # Get column names
+# column_name <- colnames(MATH_2013_17_SCHOOL)
+# 
+# # Convert to data frame
+# column_name_df <- data.frame(column_name)
+# 
+# # Write to CSV file
+# write.csv(column_name_df, "column_names.csv", row.names = FALSE)
+# 
+# # Print to confirm
+# print(column_name_df)
+# 
+# 
+
+
+```
+
+</details>
+
+## **Q What recurring themes or relationships between school characteristics and academic outcomes can be identified?**
+
+### **Objective**
+
+Identify patterns or relationships between various school
+characteristics (e.g., specialized, charter, resources, and teachers)
+and academic outcomes (e.g., graduation rates, test scores, Regents exam
+results).
+
+------------------------------------------------------------------------
+
+### **Steps to Approach**
+
+#### **1. Data Exploration**
+
+-   **GRAD_RATES**:
+    -   Explore graduation percentages by cohort and categories (e.g.,
+        total, advanced Regents).
+    -   Investigate differences across schools, years, and categories.\
+-   **DEMOGRAPHICS**:
+    -   Understand the composition of schools by gender, ethnicity,
+        disabilities, and poverty rates.\
+-   **REGENTS**:
+    -   Analyze Regents pass rates and proficiency levels across
+        schools, and compare specialized/charter schools.\
+-   **ELA and MATH**:
+    -   Examine trends in test scores (mean scores, proficiency levels)
+        for ELA and Math.
+
+**Analysis Plan:**\
+- Identify which school characteristics (e.g., specialized, charter,
+resources) might be tied to better academic outcomes. - Investigate
+trends by: - School type (e.g., specialized, charter, traditional). -
+Resources (e.g., economic need index, student-teacher ratio if available
+indirectly via grades).\
+- Demographic attributes.
+
+------------------------------------------------------------------------
+
+#### **2. Exploratory Data Analysis (EDA)**
+
+-   **Visualizations:**
+    -   Distribution plots for graduation rates and test scores by
+        school type.
+    -   Bar charts comparing performance by demographic group (gender,
+        ethnicity, etc.).
+    -   Line charts showing trends over time (e.g., improvement in
+        ELA/MATH scores).
+    -   Heatmaps for correlations between characteristics and outcomes.
+-   **Descriptive Statistics:**
+    -   Summary statistics (mean, median, range) for graduation rates,
+        Regents, and test scores by school type and resources.
+
+------------------------------------------------------------------------
+
+#### **3. Statistical Analysis**
+
+-   **Correlation Analysis:**
+    -   Explore relationships between variables like `% Poverty`,
+        `% Students with Disabilities`, and academic performance.
+-   **Group Comparisons:**
+    -   Use t-tests or ANOVA to compare outcomes across different types
+        of schools (e.g., specialized vs. charter vs. traditional).\
+-   **Regression Analysis:**
+    -   Build linear regression models to identify predictors of
+        academic outcomes.\
+    -   Example:
+        -   Dependent Variable: `% Grads`, `% Regents Pass`, Mean Test
+            Scores.\
+        -   Independent Variables: `% Poverty`,
+            `% Students with Disabilities`, School Type, etc.
+
+------------------------------------------------------------------------
+
+### **Step 1: Load and Inspect the Datasets**
+
+1.  View the structure (`str()`) of **GRAD_RATES** and **DEMOGRAPHICS**
+    to understand column types.
+2.  Summarize key variables to identify ranges, missing values, and
+    overall patterns.
+
+------------------------------------------------------------------------
+
+### **Step 2: Analyze Key Variables**
+
+After loading and inspecting, we’ll analyze: 1. **Graduation Rates:**
+Investigate the relationship between `% Grads`, `% Regents`, and
+advanced Regents achievements. 2. **Demographics:** Examine school-level
+data like `% Poverty`, `% Students with Disabilities`, and ethnic
+composition.
+
+------------------------------------------------------------------------
+
+### **Step 3: Visualize Graduation Rates by School Type**
+
+We’ll create a bar chart comparing graduation rates between different
+school types.
+
+```{R}
+
+
+GRAD_RATES %>%
+  ggplot(aes(x = as.numeric(gsub("%", "", `% Grads`)), fill = Category)) +
+  geom_density(alpha = 0.5) +
+  theme_minimal() +
+  labs(title = "Distribution of Graduation Rates by School Type",
+       x = "Graduation Rate (%)",
+       y = "Density")
+
+```
+
+------------------------------------------------------------------------
+
+### **Step 4: Correlation Analysis**
+
+Check correlations between graduation rates and demographic variables
+like `% Poverty` and `% Students with Disabilities`.
+
+```{R}
+# Correlation Analysis
+correlation_data <- DEMOGRAPHICS %>%
+  select(`% Poverty`, `% Students with Disabilities`, `% Asian`, `% Black`, `% Hispanic`, `% White`) %>%
+  mutate(across(everything(), as.numeric))  
+  # Convert percentages to numeric
+
+cor_matrix <- cor(correlation_data, use = "complete.obs")
+print(cor_matrix)
+
+# Visualize correlation as a heatmap
+library(corrplot)
+corrplot(cor_matrix, method = "color", tl.cex = 0.8, title = "Correlation Heatmap")
+```
+
+------------------------------------------------------------------------
+
+### **Observations from the Data Summary**
+
+#### **1. Correlation Matrix Highlights**
+
+-   **% Poverty and % Black/Hispanic**: Strong positive correlations
+    (0.325 for Black and 0.471 for Hispanic) indicate that schools with
+    higher poverty rates tend to have higher proportions of Black and
+    Hispanic students.
+-   **% Poverty and % White**: Strong negative correlation (-0.786)
+    suggests that schools with higher poverty rates tend to have fewer
+    White students.
+-   **% Asian and % Black/Hispanic**: Moderate to strong negative
+    correlations with both Black (-0.470) and Hispanic (-0.354)
+    percentages, indicating that schools with a higher percentage of
+    Asian students have lower proportions of these groups.
+-   **% White and Other Ethnicities**: White percentages negatively
+    correlate with all other ethnic groups, which aligns with
+    demographic segregation patterns.
+
+------------------------------------------------------------------------
+
+#### **2. Key Insights from GRAD_RATES**
+
+-   Variables like `% Grads`, `% Total Regents`, and
+    `% Advanced Regents` are stored as character data, often in
+    percentage form. These need conversion to numeric for analysis.
+-   There may be inconsistencies in graduation rates because some
+    schools might have very low cohort sizes (e.g., `# Total Cohort`
+    ranges from 1 to 1517). Filtering might be needed to remove outliers
+    with unrealistically small cohorts.
+-   Graduation data spans multiple years (`Cohort Year` from 2012 to
+    2019), allowing trend analysis.
+
+------------------------------------------------------------------------
+
+#### **3. Key Insights from DEMOGRAPHICS**
+
+-   **Total Enrollment** varies significantly between schools (7 to
+    6,040), indicating that some schools are specialized or small-scale
+    (e.g., charter or private-like schools).
+-   **Ethnic Composition** shows significant variability:
+    -   Hispanic and Black students dominate in many schools, with mean
+        values of \~44% and \~30%, respectively.
+    -   Asian students have a mean representation of \~11%, and White
+        students \~11%, but these vary widely.
+-   **Poverty Indicators**:
+    -   Data for `% Poverty` is stored as a character and needs to be
+        converted.
+    -   Economic disparity across schools could be a key driver of
+        outcomes.
+
+------------------------------------------------------------------------
+
+#### **3. Statistical Analysis**
+
+-   **Regression Models**:
+    -   Fit a linear regression to explore the relationship between
+        graduation rates and predictors like poverty, ethnicity, and
+        total enrollment.
+-   **Group Comparisons**:
+    -   Compare average graduation rates between high-poverty and
+        low-poverty schools using t-tests or ANOVA.
+
+------------------------------------------------------------------------
+
+### Cleaning and Initial Visualizations Code
+
+<details>
+
+<summary>Here’s the R code for cleaning and starting
+visualizations:</summary>
+
+```{R}
+# Data Cleaning
+# Convert percentage columns to numeric
+GRAD_RATES <- GRAD_RATES %>%
+  mutate(across(contains("%"), ~as.numeric(gsub("%", "", .))))
+
+DEMOGRAPHICS <- DEMOGRAPHICS %>%
+  mutate(across(contains("%"), ~as.numeric(gsub("%", "", .))),
+         `% Poverty` = as.numeric(`% Poverty`))  # Convert poverty column
+
+# Filter for realistic cohort sizes
+GRAD_RATES <- GRAD_RATES %>% filter(`# Total Cohort` >= 10)
+
+# Visualization: Graduation Rates by Poverty Levels
+grad_poverty <- GRAD_RATES %>%
+  left_join(DEMOGRAPHICS, by = "DBN") %>%
+  filter(!is.na(`% Poverty`) & !is.na(`% Grads`)) %>%
+  mutate(Poverty_Level = case_when(
+    `% Poverty` < 30 ~ "Low Poverty (<30%)",
+    `% Poverty` >= 30 & `% Poverty` < 70 ~ "Medium Poverty (30-70%)",
+    `% Poverty` >= 70 ~ "High Poverty (70%+)"
+  ))
+
+```
+
+</details>
+
+```{R}
+
+ggplot(grad_poverty, aes(x = Poverty_Level, y = `% Grads`, fill = Poverty_Level)) +
+  geom_boxplot() +
+  theme_minimal() +
+  labs(title = "Graduation Rates by Poverty Level",
+       x = "Poverty Level",
+       y = "Graduation Rate (%)") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+ggplot(grad_poverty, aes(x = `% Poverty`, y = `% Grads`, color = Poverty_Level)) +
+  geom_point() +
+  theme_minimal() +
+  labs(title = "Graduation Rates vs. Poverty Level",
+       x = "Poverty Level",
+       y = "Graduation Rate (%)")
+
+ggplot(grad_poverty, aes(x = `% Grads`, fill = Poverty_Level)) +
+  geom_density(alpha = 0.5) +
+  theme_minimal() +
+  labs(title = "Distribution of Graduation Rates by Poverty Level",
+       x = "Graduation Rate (%)",
+       y = "Density")
+
+
+```
+
+------------------------------------------------------------------------
+
+### Key Observations:
+
+1.  **Numerical Columns as Character Types:**\
+    Many columns (e.g., `% Grads`, `% Total Regents of Cohort`, etc.)
+    are stored as characters. These should be converted to numeric for
+    any statistical analysis or modeling.
+
+2.  **Potential Missing Data:**\
+    Some variables seem to have missing or incomplete data (e.g.,
+    `# Neither Female nor Male` and `# Missing Race/Ethnicity Data` have
+    many `NA` values).
+
+3.  **Correlation Insights:**
+
+    -   There is a strong negative correlation between `% White` and
+        `% Poverty`.\
+    -   `% Asian` shows moderate negative correlations with `% Poverty`,
+        `% Black`, and `% Hispanic`.\
+    -   `% Black` and `% Hispanic` have moderate negative correlations
+        with `% White`.
+
+4.  **Dataset Size and Scope:**\
+    The size of the datasets (`DEMOGRAPHICS`: 9363 rows, `GRAD_RATES`:
+    17093 rows) suggests they cover multiple schools and years, which
+    may require grouping or filtering to focus on specific analysis
+    questions.
+
+------------------------------------------------------------------------
+
+### Proposed Next Steps:
+
+#### 1. **Data Cleaning**
+
+Convert the relevant columns to numeric and handle missing values
+appropriately. For instance:
+
+```{R}
+library(dplyr)
+
+# Select columns with % in their names dynamically
+cols_to_convert <- names(GRAD_RATES)[grepl("%", names(GRAD_RATES))]
+
+# Convert these columns to numeric
+GRAD_RATES[cols_to_convert] <- lapply(GRAD_RATES[cols_to_convert], function(x) as.numeric(as.character(x)))
+
+merged_data <- merge(GRAD_RATES, DEMOGRAPHICS, by = "DBN")
+
+# Specify columns to convert from both datasets
+cols_to_convert <- c("% Grads", "% Total Regents of Cohort", "% Poverty")
+
+# Ensure these columns exist in the merged dataset
+merged_data[cols_to_convert] <- lapply(merged_data[cols_to_convert], function(x) as.numeric(as.character(x)))
+
+# Handle missing data
+merged_data <- na.omit(merged_data)
+
+cor_data <- merged_data[, cols_to_convert]
+cor_matrix <- cor(cor_data, use = "complete.obs")
+print(cor_matrix)
+
+
+
+```
+
+#### 2. **Exploratory Data Analysis (EDA)**
+
+-   Create visualizations to explore relationships, e.g., scatterplots
+    or boxplots for `% Poverty` vs. graduation rates.
+-   Generate histograms or density plots for distribution of key
+    variables.
+
+```{R}
+library(ggplot2)
+
+ggplot(merged_data, aes(x = `% Poverty`, y = `% Grads`)) +
+  geom_point() +
+  geom_smooth(method = "lm", col = "blue") +
+  labs(title = "Relationship between Poverty and Graduation Rates",
+       x = "% Poverty", y = "% Graduation Rate")
+
+```
+
+#### 3. **Feature Engineering**
+
+-   Derive new columns or metrics. For instance:
+    -   Combine `% Asian`, `% Black`, `% Hispanic`, and `% White` into a
+        diversity index.
+    -   Calculate ratios like `# Grads` / `# Total Cohort`.
+
+#### 4. **Statistical Modeling/Analysis**
+
+Depending on your specific research questions, potential approaches
+could include: - **Linear regression** to examine the relationship
+between school characteristics and academic outcomes. - **ANOVA** to
+compare means across categories (e.g., charter vs. non-charter
+schools). - **Clustering** to group schools based on characteristics.
+
+```{R}
+model <- lm(`% Grads` ~ `% Poverty` + `% Asian` + `% Black` + `% Hispanic` + `% White`, data = merged_data)
+
+```
+
+<details>
+
+<summary>Summary</summary>
+
+```{r}
+summary(model)
+```
+
+</details>
+
+#### 5. **Combining Datasets**
+
+Merge `GRAD_RATES` with `DEMOGRAPHICS` on a common identifier (e.g.,
+`DBN`) to analyze the interaction between demographic and performance
+data:
+
+```{R}
+combined_data <- merged_data
+```
+
+### **Analysis Interpretation**
+
+#### **Linear Regression Model**
+
+-   **Intercept (179.018)**: This represents the expected graduation
+    rate (`% Grads`) when all other predictors are zero. This number is
+    likely not meaningful on its own, as the percentage of ethnicities
+    or poverty levels being zero may not be realistic.
+
+-   **Coefficients**:
+
+    -   **`% Poverty` (-46.185)**: A one percentage point increase in
+        poverty is associated with a 46.2 percentage point decrease in
+        the graduation rate, which is a strong negative relationship.
+    -   **`% Asian` (-44.866)**: A one percentage point increase in the
+        percentage of Asian students is associated with a 44.9
+        percentage point decrease in the graduation rate. This result
+        may seem counterintuitive or require further exploration of the
+        underlying data.
+    -   **`% Black` (-70.362)**: A one percentage point increase in the
+        percentage of Black students is associated with a 70.4
+        percentage point decrease in the graduation rate. Again, this
+        could indicate important sociocultural or systemic factors that
+        need further investigation.
+    -   **`% Hispanic` (-62.061)**: Similar to the other ethnicity-based
+        coefficients, a higher percentage of Hispanic students is
+        associated with a decrease in graduation rates, though it’s
+        slightly smaller than the effect for Black students.
+    -   **`% White` (-74.298)**: A one percentage point increase in the
+        percentage of White students is associated with a 74.3
+        percentage point decrease in the graduation rate.
+
+#### **Interpretation of Significance**:
+
+-   All predictors (`% Poverty`, `% Asian`, `% Black`, `% Hispanic`,
+    `% White`) are statistically significant with p-values less than
+    2e-16, indicating strong evidence against the null hypothesis (no
+    effect).
+
+-   **Residual Standard Error**: The standard error of the residuals is
+    **17.2**, which tells you the average distance that the observed
+    values fall from the regression line.
+
+-   **R-squared**: The **Multiple R-squared (0.1865)** indicates that
+    about 18.65% of the variability in the graduation rates is explained
+    by these predictors. This is relatively low, suggesting other
+    factors not included in this model contribute significantly to
+    graduation rates.
+
+-   **F-statistic (1373)**: The high value of the F-statistic indicates
+    that at least one of the predictors in the model has a non-zero
+    effect on the graduation rate.
+
+------------------------------------------------------------------------
+
+#### **Correlation Matrix**
+
+The correlation matrix for `% Grads`, `% Total Regents of Cohort`, and
+`% Poverty` shows:
+
+-   **% Grads and % Total Regents of Cohort (0.9489)**: There is a very
+    high positive correlation between graduation rates and the
+    percentage of students achieving total regents. This indicates that
+    schools with higher graduation rates tend to also have higher
+    percentages of students passing regents exams.
+
+-   **% Grads and % Poverty (-0.3887)**: There is a moderate negative
+    correlation between graduation rates and poverty percentage. This
+    confirms that higher poverty rates are associated with lower
+    graduation rates.
+
+-   **% Total Regents of Cohort and % Poverty (-0.4207)**: A similar
+    moderate negative correlation exists between regents performance and
+    poverty levels. This suggests that higher poverty rates tend to
+    correlate with lower academic achievement in regents exams.
+
+------------------------------------------------------------------------
+
+## **Question B: Do certain school characteristics lend to better academic performance?**
+
+To answer this question, you need to identify school characteristics
+that are associated with higher academic performance. Since you've been
+working with variables like **graduation rates** and **regents exam
+performance**, it's important to focus on the characteristics that could
+be relevant to academic outcomes, such as:
+
+-   **School demographic composition** (e.g., percentage of Asian,
+    Black, Hispanic, White students)
+
+-   **Socioeconomic factors** (e.g., percentage of students from
+    low-income backgrounds, as represented by the `% Poverty`)
+
+-   **School resources and facilities** (e.g., teacher quality, school
+    funding, availability of extracurricular programs)
+
+------------------------------------------------------------------------
+
+### **1. Graduation Rates (`GRAD_RATES`)**
+
+**Visualization:**\
+- Plot graduation rates (`% Grads`) against characteristics such as
+`Cohort Year` or `% Total Regents of Cohort`.\
+- Boxplots to compare `% Grads` across different `Categories` of schools
+(e.g., "All Students", "English Language Learners").
+
+**Code:**
+
+```{r}
+# Scatter plot: % Grads vs % Total Regents of Cohort
+library(ggplot2)
+ggplot(GRAD_RATES, aes(x = `% Total Regents of Cohort`, y = `% Grads`)) +
+  geom_point(alpha = 0.5, color = "blue") +
+  labs(title = "Graduation Rates vs. Regents Participation",
+       x = "Percentage of Regents Participation",
+       y = "Graduation Rates") +
+  theme_minimal()
+
+```
+
+------------------------------------------------------------------------
+
+### **2. Demographics (`DEMOGRAPHICS`)**
+
+**Visualization:**\
+- Correlation between `% Poverty` and racial demographics (`% Asian`,
+`% Black`, etc.) with performance indicators.\
+- Bar chart for `Total Enrollment` grouped by years.
+
+**Code:**
+
+```{r}
+# Scatter plot: % Poverty vs % Asian
+ggplot(DEMOGRAPHICS, aes(x = `% Poverty`, y = `% Asian`)) +
+  geom_point(alpha = 0.5, color = "green") +
+  labs(title = "Relationship Between Poverty and Asian Demographics",
+       x = "Percentage of Poverty",
+       y = "Percentage of Asian Students") +
+  theme_minimal()
+
+# Bar chart: Total Enrollment over Years
+ggplot(DEMOGRAPHICS, aes(x = Year, y = `Total Enrollment`, fill = Year)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Total Enrollment Over Years",
+       x = "Year",
+       y = "Total Enrollment") +
+  theme_minimal()
+```
+
+------------------------------------------------------------------------
+
+### **3. Regents Exam Data (`REGENTS`)**
+
+**Visualization:**\
+- Histogram of `Mean Score` distribution.\
+- Bar chart for `Percent Scoring 65 or Above` across school types.
+
+**Code:**
+
+```{r}
+
+# Ensure that the Mean Score column is numeric
+REGENTS$`Mean Score` <- as.numeric(as.character(REGENTS$`Mean Score`))
+
+# Handle any non-numeric values in Mean Score (e.g., replace with NA)
+REGENTS <- REGENTS %>%
+  filter(!is.na(`Mean Score`))
+
+# Histogram of Mean Scores
+ggplot(REGENTS, aes(x = `Mean Score`)) +
+  geom_histogram(binwidth = 5, fill = "orange", color = "black") +
+  labs(title = "Distribution of Regents Exam Scores",
+       x = "Mean Score",
+       y = "Frequency") +
+  theme_minimal()
+
+# Bar chart: Percent Scoring 65 or Above by School Type
+ggplot(REGENTS, aes(x = `School Type`, y = `Percent Scoring 65 or Above`, fill = `School Type`)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Performance Above Passing (65) by School Type",
+       x = "School Type",
+       y = "Percentage Scoring 65 or Above") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+------------------------------------------------------------------------
+
+### **4. ELA Data (2006–12 and 2013–18)**
+
+**Visualization:**\
+- Line chart for performance trends in `Pct.Level.3.and.4` by
+Number.Tested.
+
+**Code:**
+
+```{r}
+# Line chart: Mean Scale Score by Year (ELA 2006–12)
+ggplot(ELA_2006_12_SCHOOL, aes(x = Pct.Level.3.and.4, y = `Number.Tested`, color = Grade)) +
+  geom_line(size = 1) +
+  labs(title = "ELA Mean Scale Score Over Time (2006-2012)",
+       x = "Year",
+       y = "Mean Scale Score") +
+  theme_minimal()
+
+```
+
+------------------------------------------------------------------------
+
+### **5. Math Data (2013–17)**
+
+**Visualization:**\
+- Plot `Mean Scale Score` trends over time.\
+- Bar chart comparing `Level 3/4 Proficiency` across grades.
+
+**Code:**
+
+```{r}
+# Line chart: Math Mean Scale Score over Years
+ggplot(MATH_2006_12_SCHOOL, aes(x = Year, y = `Mean.Scale.Score`, color = Grade)) +
+  geom_line(size = 1) +
+  labs(title = "Math Mean Scale Score Over Time (2013-2017)",
+       x = "Year",
+       y = "Mean Scale Score") +
+  theme_minimal()
+
+# Bar chart: Proficiency Levels 3/4 across Grades
+ggplot(MATH_2006_12_SCHOOL, aes(x = Grade, y = `Pct.Level.3.and.4`, fill = Grade)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Math Proficiency Levels (3/4) Across Grades",
+       x = "Grade",
+       y = "Percentage Proficient (Levels 3/4)") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+------------------------------------------------------------------------
+
+These visualizations will help identify patterns and relationships for
+academic performance with respect to school characteristics,
+demographics, and other contextual factors. Let me know if you want me
+to focus on a specific dataset or refine these plots!
+
+```{r}
+# Select numeric columns
+grad_rates_cor_data <- GRAD_RATES[, c("% Grads", "% Total Regents of Cohort", 
+                                      "% Advanced Regents of Cohort", 
+                                      "% Regents without Advanced of Cohort", 
+                                      "% Local of Cohort", "% Dropout")]
+
+# Compute correlation matrix
+grad_rates_corr <- cor(grad_rates_cor_data, use = "complete.obs")
+
+# # Print correlation matrix
+# print(grad_rates_corr)
+
+
+
+```
+
+```{r}
+# Select numeric columns
+demographics_cor_data <- DEMOGRAPHICS[, c("% Poverty", "% Asian", "% Black", 
+                                          "% Hispanic", "% White", 
+                                          "% Students with Disabilities", 
+                                          "% English Language Learners")]
+
+# Compute correlation matrix
+demographics_corr <- cor(demographics_cor_data, use = "complete.obs")
+
+# # Print correlation matrix
+# print(demographics_corr)
+
+
+```
+
+### **Correlation Analysis Insights**
+
+#### **1. Demographics Correlation**
+
+-   **Strong Positive Correlations:**
+    -   `% Poverty` and `% Hispanic` (0.471): Higher poverty rates are
+        associated with a greater percentage of Hispanic students.
+    -   `% Poverty` and `% English Language Learners` (0.338): Poverty
+        levels increase with the percentage of English Language
+        Learners.
+-   **Strong Negative Correlations:**
+    -   `% Poverty` and `% White` (-0.786): Higher poverty levels are
+        associated with fewer White students.
+    -   `% Black` and `% Asian` (-0.470): Schools with a higher
+        percentage of Black students tend to have fewer Asian students.
+-   **Weaker Correlations:**
+    -   `% Students with Disabilities` has generally low correlations
+        with other variables, suggesting its prevalence is not strongly
+        tied to demographic percentages or poverty levels.
+
+#### **2. Graduation Rates Correlation**
+
+-   **Strong Positive Correlations:**
+    -   `% Grads` and `% Total Regents of Cohort` (0.950): A high
+        percentage of graduates correlates strongly with Regents
+        participation.
+    -   `% Grads` and `% Advanced Regents of Cohort` (0.454): Schools
+        with more advanced Regents completion have higher graduation
+        rates.
+-   **Strong Negative Correlations:**
+    -   `% Grads` and `% Dropout` (-0.706): As expected, schools with
+        higher dropout rates have lower graduation percentages.
+    -   `% Dropout` and `% Total Regents of Cohort` (-0.721): Schools
+        with higher dropout rates tend to have lower Regents
+        participation.
+-   **Interesting Observations:**
+    -   `% Local of Cohort` and `% Grads` (-0.115): Local diplomas
+        correlate weakly and negatively with graduation rates, likely
+        because schools with higher Regents completion overshadow the
+        role of local diplomas.
+
+------------------------------------------------------------------------
+
+### **Visualizing Correlation Matrices**
+
+#### **1. Demographics Correlation Visualization**
+
+```{r}
+corrplot(demographics_corr, method = "color", type = "lower",
+         title = "Correlation Matrix: Demographics", 
+         tl.cex = 0.8, mar = c(0, 0, 1, 0))
+```
+
+#### **2. Graduation Rates Correlation Visualization**
+
+```{r}
+corrplot(grad_rates_corr, method = "circle", type = "upper",
+         title = "Correlation Matrix: Graduation Rates", 
+         tl.cex = 0.8, mar = c(0, 0, 1, 0))
+```
+
+------------------------------------------------------------------------
+
+### **Key Implications for Question B**
+
+1.  **From Demographics**:
+    -   Schools with a high percentage of poverty may face challenges in
+        academic outcomes, indicated by lower percentages of Asian or
+        White students in high-poverty schools.
+    -   English Language Learners and Hispanic students tend to be
+        overrepresented in high-poverty schools.
+2.  **From Graduation Rates**:
+    -   Schools that emphasize Regents exams, especially advanced
+        Regents diplomas, tend to perform better in terms of graduation
+        rates.
+    -   Dropout rates strongly inversely impact academic success metrics
+        like graduation rates.
+
+### Question C: **What relationships exist between school resources and academic performance?**
+
+To address this question, we need to focus on datasets that provide
+information about **school resources** (e.g., enrollment,
+teacher-to-student ratios, or other resource metrics) and link these
+with **academic performance indicators** (graduation rates, Regents
+scores, ELA/MATH performance).
+
+#### **Proposed Approach:**
+
+1.  **Identify Relevant Variables:**
+    -   From **DEMOGRAPHICS**, resource-related columns such as
+        `Total Enrollment`, `% Students with Disabilities`, and
+        `% English Language Learners`.
+    -   From **REGENTS, GRAD_RATES**, and **ELA/MATH datasets**,
+        performance metrics such as:
+        -   `% Grads`, `% Regents Scores >= 65`, and
+            `% Regents Scores >= 80`.
+        -   `% Level 3 and 4` in ELA/MATH datasets.
+2.  **Merge Relevant Datasets (if needed):**
+    -   Create relationships between **resources** and **performance**
+        by linking datasets using the `DBN` column.
+    -   Summarize or aggregate resource data as required.
+3.  **Analyze Relationships:**
+    -   **Correlation Analysis** between resource variables and academic
+        outcomes.
+    -   **Regression Modeling** to understand the contribution of
+        specific resources to performance.
+4.  **Visualizations:**
+    -   Scatterplots and correlation matrices to explore relationships.
+    -   Bar plots or boxplots to compare performance across resource
+        levels.
+
+------------------------------------------------------------------------
+
+### **Step 1: Load Necessary Datasets**
+
+We need the following datasets: 1. **DEMOGRAPHICS** for resource
+indicators. 2. **GRAD_RATES** for graduation-related performance
+metrics. 3. **REGENTS** for Regents exam performance. 4.
+**ELA_2013_18_SCHOOL** and **MATH_2013_17_SCHOOL** for ELA and Math
+performance.
+
+### **Step 2: Prepare the Datasets**
+
+Each dataset may need cleaning or aggregation before merging: -
+**Aggregate ELA and Math**: Group data by `DBN` and calculate averages
+(e.g., `% Level 3.4`). - **Select Key Columns**: Reduce the datasets to
+columns of interest (to minimize memory usage and simplify merging).
+
+### **Step 3: Merge the Datasets**
+
+Merge datasets using `DBN` as the common key.
+
+------------------------------------------------------------------------
+
+### **Code to Merge and Save Combined Dataset**
+
+```{R}
+# First, load necessary libraries
+library(dplyr)
+
+# Join GRAD_RATES and DEMOGRAPHICS
+merged_data <- GRAD_RATES %>%
+  inner_join(DEMOGRAPHICS, by = "DBN")
+
+# Add REGENTS data (aggregated)
+regents_aggregated <- REGENTS %>%
+  group_by(`School DBN`) %>%
+  summarise(`% Scoring 65 or Above` = mean(`Percent Scoring 65 or Above`, na.rm = TRUE),
+            `% Scoring 80 or Above` = mean(`Percent Scoring 80 or Above`, na.rm = TRUE)) %>%
+  ungroup()
+
+merged_data <- merged_data %>%
+  inner_join(regents_aggregated, by = c("DBN" = "School DBN"))
+
+# Add ELA 2006-12 data (aggregated)
+ela_aggregated_2006_12 <- ELA_2006_12_SCHOOL %>%
+  group_by(DBN) %>%
+  summarise(`% ELA Level 3.4` = mean(`Pct.Level.3.and.4`, na.rm = TRUE)) %>%
+  ungroup()
+
+merged_data <- merged_data %>%
+  inner_join(ela_aggregated_2006_12, by = "DBN")
+
+# Add ELA 2013-18 data (aggregated)
+ela_aggregated_2013_18 <- ELA_2013_18_SCHOOL %>%
+  group_by(DBN) %>%
+  summarise(`% ELA Level 3.4` = mean(`Level.3.4..`, na.rm = TRUE)) %>%
+  ungroup()
+
+merged_data <- merged_data %>%
+  inner_join(ela_aggregated_2013_18, by = "DBN")
+
+# Add MATH 2013-17 data (aggregated)
+# Aggregate Math data
+# Aggregate Math data using the correct column
+math_aggregated <- MATH_2013_17_SCHOOL %>%
+  group_by(DBN) %>%
+  summarise(`% Math Level 3.4` = mean(`Level3.4_.`, na.rm = TRUE)) %>%
+  ungroup()
+
+# Merge the aggregated Math data with the main data
+merged_data <- merged_data %>%
+  inner_join(math_aggregated, by = "DBN")
+
+
+
+```
+
+------------------------------------------------------------------------
+
+### 2. **Regression Models**:
+
+To explore whether certain school characteristics are associated with
+better academic performance, you can create linear regression models.
+These models will help you understand how demographic factors and other
+school characteristics influence performance outcomes (e.g., graduation
+rates, Regents exam scores, ELA, Math).
+
+```{r}
+# Model for Graduation Rates based on School Characteristics
+grad_model <- lm(`% Grads` ~ `% Poverty` + `% Asian` + `% Black` + `% Hispanic` + `% White`, data = merged_data)
+summary(grad_model)
+
+# Model for Regents Exam Performance
+regents_model <- lm(`% Total Regents of Cohort` ~ `% Poverty` + `% Asian` + `% Black` + `% Hispanic` + `% White`, data = merged_data)
+summary(regents_model)
+
+
+```
+
+### 3. **Visualization**:
+
+After running the regression models, you can visualize the relationship
+between key variables (e.g., poverty, ethnicity) and academic outcomes
+like graduation rates, Regents performance, Math, and ELA scores.
+
+```{r}
+# Plot the relationship between % Poverty and % Grads
+library(ggplot2)
+ggplot(merged_data, aes(x = `% Poverty`, y = `% Grads`)) +
+  geom_point() +
+  geom_smooth(method = "lm", col = "red") +
+  labs(title = "Relationship between Poverty and Graduation Rate",
+       x = "Percentage of Poverty",
+       y = "Percentage of Graduates")
+
+
+```
+
+```{r}
+# Visualize relationship between % Black and % Hispanic
+ggplot(DEMOGRAPHICS, aes(x = `% Black`, y = `% Hispanic`)) +
+  geom_point() +
+  geom_smooth(method = "lm", col = "blue") +
+  labs(title = "Relationship between Black and Hispanic Students",
+       x = "Percentage of Black Students",
+       y = "Percentage of Hispanic Students")
+```
+
+### Summary of the Regression Models
+
+#### 1. **Graduation Rates Model:**
+
+The regression model for graduation rates based on school
+characteristics shows significant relationships with several variables:
+
+-   **% Poverty**: A negative relationship with graduation rates. As the
+    percentage of students in poverty increases, the graduation rate
+    decreases. The coefficient is -22.071, meaning that for each
+    percentage increase in poverty, the graduation rate drops by 22.1
+    percentage points. This is highly significant with a p-value \<
+    2e-16.
+
+-   **% Asian**: A positive relationship with graduation rates. The
+    coefficient is 40.801, meaning that for each percentage increase in
+    Asian students, the graduation rate increases by 40.8 percentage
+    points, which is also highly significant.
+
+-   **% Black** and **% Hispanic**: Both have positive relationships
+    with graduation rates with coefficients of 23.134 and 23.232,
+    respectively. These are also statistically significant.
+
+-   **% White**: Positive relationship with a coefficient of 18.872,
+    suggesting that higher percentages of White students are associated
+    with higher graduation rates. This is statistically significant as
+    well.
+
+**Model Fit**: - **R-squared**: 0.2246, meaning that about 22.46% of the
+variability in graduation rates can be explained by the school
+characteristics in the model. - **Adjusted R-squared**: 0.2243, slightly
+lower than the R-squared, taking into account the number of
+predictors. - **F-statistic**: 733.8 with a p-value \< 2.2e-16,
+indicating that the model as a whole is statistically significant.
+
+#### 2. **Regents Exam Performance Model:**
+
+The regression model for Regents exam performance also shows significant
+relationships:
+
+-   **% Poverty**: A negative relationship with Regents exam
+    performance. As the percentage of students in poverty increases, the
+    Regents performance decreases. The coefficient is -24.788, meaning a
+    1% increase in poverty corresponds to a 24.8 percentage point
+    decrease in Regents scores.
+
+-   **% Asian**: Positive relationship with Regents exam performance,
+    similar to graduation rates, with a coefficient of 38.208.
+
+-   **% Black** and **% Hispanic**: Both have positive relationships
+    with Regents exam performance with coefficients of 14.379 and
+    15.808, respectively.
+
+-   **% White**: Positive relationship with a coefficient of 12.150,
+    suggesting that higher percentages of White students are associated
+    with higher Regents performance.
+
+**Model Fit**: - **R-squared**: 0.2038, meaning that about 20.38% of the
+variability in Regents performance can be explained by the school
+characteristics in the model. - **Adjusted R-squared**: 0.2035, similar
+to the R-squared, accounting for the number of predictors. -
+**F-statistic**: 648.4 with a p-value \< 2.2e-16, indicating that the
+model is statistically significant.
+
+### Key Insights:
+
+-   **Poverty** consistently shows a negative relationship with both
+    graduation rates and Regents performance, highlighting the
+    significant challenge that higher poverty levels pose for academic
+    achievement.
+-   **Ethnicity** (particularly Asian, Black, Hispanic, and White
+    percentages) has a positive relationship with academic outcomes,
+    with Asian students showing the strongest positive influence on both
+    graduation rates and Regents performance.
+-   The R-squared values suggest that these models are capturing a
+    moderate amount of the variability in the outcomes, but there may be
+    other factors influencing academic performance that are not included
+    in the current model.
